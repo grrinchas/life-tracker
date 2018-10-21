@@ -1,8 +1,8 @@
 {
-    "name": "dg-elm-starter-kit",
+    "name": "dennis-blog",
     "version": "0.1.0",
     "main": "src/index.js",
-    "repository": "https://github.com/grrinchas/dg-elm-starter-kit.git",
+    "repository": "https://github.com/grrinchas/dennis-blog.git",
     "author": "Dennis Grinch <dg4675dg@gmail.com>",
     "license": "MIT",
     "scripts": {
@@ -32,5 +32,9 @@
         "webpack-dev-middleware": "^3.4.0",
         "webpack-hot-middleware": "^2.24.3",
         "webpack-merge": "^4.1.4"
+    },
+    "dependencies": {
+        "elm-format": "^0.8.1",
+        "global": "^4.3.2"
     }
 }
