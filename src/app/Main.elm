@@ -13,6 +13,7 @@ import Resolver
 import Route.Messages exposing (RouteMsg(..))
 import Route.Model
 import Route.Resolver
+import Route.View
 import Url exposing (Url)
 import View
 
@@ -51,7 +52,7 @@ main : Program Value Model Msg
 main =
     Browser.application
         { init = initial
-        , view = View.view
+        , view = Route.View.view
         , update = Resolver.resolve
         , subscriptions = subscriptions
         , onUrlRequest = OnRoute << OnUrlRequest

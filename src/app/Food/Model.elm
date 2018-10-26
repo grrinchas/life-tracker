@@ -8,6 +8,7 @@ import Food.Data.Diary as Diary
 import Food.Data.Legume as Legume
 import Food.Data.Poultry as Poultry
 import Food.Data.Supplement as Supplement
+import Food.Data.Vegetable as Vegetable
 import Food.Food exposing (Food)
 import Food.Page exposing (Page)
 import Monocle.Lens exposing (Lens)
@@ -32,5 +33,7 @@ initial =
         , Supplement.wheyProtein
         , Diary.skimmedMilk
         , Legume.redLentils
+        , Vegetable.redBellPepper
+        , Diary.fageTotalZero
         ]
     }

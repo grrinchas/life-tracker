@@ -24,6 +24,7 @@ card ({ tags, pic, protein, carbs, fats, total, name } as food) =
                 |> toFloat
                 |> (/) (toFloat cal)
                 |> (*) 100
+                |> round
                 |> Debug.toString
                 |> (\result -> result ++ "%")
 
@@ -38,6 +39,8 @@ card ({ tags, pic, protein, carbs, fats, total, name } as food) =
                         , text " / "
                         , text <| Debug.toString cal
                         , text "cal"
+                        , text " / "
+                        , text <| getPercentage cal
                         ]
                     , span [ class "bar", style "width" (getPercentage cal) ] []
                     ]
@@ -69,7 +72,7 @@ card ({ tags, pic, protein, carbs, fats, total, name } as food) =
 
 page : Model -> Html Msg
 page { food } =
-    div [ id "food-list" ]
+    main_ [ id "food-list" ]
         [ h1 []
             [ text "Food List"
             , text " ("

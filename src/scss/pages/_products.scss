@@ -1,0 +1,78 @@
+#food-list {
+    @include padding-H();
+    > h1 {
+        @include type-setting(larger);
+    }
+
+    .food-list {
+        @include column();
+        section {
+            @include border();
+            @include not-last-child() {
+                @include margin-bottom(0.5);
+            }
+            @include flexbox();
+            background-color: $grey-light;
+            .left {
+                @include square(9);
+                @include border-right();
+                img {
+                    @include fit-size();
+                }
+            }
+
+            .right {
+                @include tag-list();
+                @include margin-H();
+                @include flex-grow();
+
+                h3 {
+                    @include type-setting(big);
+                    @include padding-V(0.5);
+                    @include flexbox();
+                    @include justify-content(space-between);
+                }
+
+                > ul {
+                    background-color: white;
+                    @include border();
+
+                    li {
+                        @include flexbox();
+                        position: relative;
+
+                        .name {
+                            background-color: $primary;
+                            color: $white;
+                            width: spacing(3.5);
+                            @include padding-VH(0.25, 0.5);
+                            @include not-last-child {
+                                @include border-bottom($white);
+                                @include border-right($white);
+                            }
+                        }
+
+                        .info {
+                            position: relative;
+                            width: spacing(20);
+                            @include padding-VH(0.25, 0.25);
+                            :last-child {
+                                top: 0;
+                                left: 0;
+                                position: absolute;
+                                background-color: $primary;
+                                opacity: 0.2;
+                                height: spacing(1.5);
+                            }
+                        }
+
+                    }
+
+                }
+
+            }
+        }
+    }
+
+}
+

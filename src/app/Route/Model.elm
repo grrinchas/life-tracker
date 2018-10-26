@@ -1,9 +1,16 @@
 module Route.Model exposing
     ( Navigation
     , Route(..)
-    , about
+    , calendar
     , home
+    , isCalendar
+    , isMeal
+    , isMeals
+    , isProducts
+    , meal
+    , meals
     , parse
+    , products
     , routeRoute
     , toPath
     )
@@ -27,17 +34,29 @@ routeRoute =
 
 type Route
     = Home
-    | About
+    | Calendar
+    | Products
+    | Meals
+    | Meal String
 
 
 parse : String -> Maybe Route
 parse path =
-    case String.split "/" path of
+    case List.filter ((/=) "") <| String.split "/" <| String.replace "#" "" path of
         [] ->
             Just Home
 
-        [ "about" ] ->
-            Just About
+        [ "calendar" ] ->
+            Just Calendar
+
+        [ "products" ] ->
+            Just Products
+
+        [ "meals" ] ->
+            Just Meals
+
+        [ "meals", name ] ->
+            Just (Meal name)
 
         _ ->
             Nothing
@@ -47,10 +66,19 @@ toPath : Config -> Route -> String
 toPath { mode } route =
     case route of
         Home ->
-            "/"
+            "/#"
 
-        About ->
-            "/about"
+        Calendar ->
+            "#calendar"
+
+        Products ->
+            "#products"
+
+        Meals ->
+            "#meals"
+
+        Meal name ->
+            "#meals/" ++ name
 
 
 home : Route
@@ -58,6 +86,51 @@ home =
     Home
 
 
-about : Route
-about =
-    About
+meals : Route
+meals =
+    Meals
+
+
+meal : String -> Route
+meal =
+    Meal
+
+
+calendar : Route
+calendar =
+    Calendar
+
+
+products : Route
+products =
+    Products
+
+
+isMeals : Route -> Bool
+isMeals =
+    (==) Meals
+
+
+isMeal : Route -> Bool
+isMeal route =
+    case route of
+        Meal _ ->
+            True
+
+        _ ->
+            False
+
+
+isHome : Route -> Bool
+isHome =
+    (==) Home
+
+
+isCalendar : Route -> Bool
+isCalendar =
+    (==) Calendar
+
+
+isProducts : Route -> Bool
+isProducts =
+    (==) Products

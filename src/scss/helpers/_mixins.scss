@@ -37,8 +37,12 @@
             }
         }
     }
+}
 
 
-
-
+@mixin svg-icon($width: 20px, $colour: $black) {
+    svg {
+        width: $width;
+        fill: $colour
+    }
 }

@@ -5,8 +5,36 @@ html {
 
 body {
     @include type-setting();
-    @include constrain-width(1000px);
     margin: 0 auto;
     color: $black;
     font-family: $font-family-primary;
+
+    > header {
+        @include header-main();
+    }
+
+    @include column();
+    @include flex-wrap(wrap);
+
+    .main-wrapper {
+        @include padding-top(2.5);
+        @include flex-grow();
+        @include flexbox();
+
+        aside {
+            @include border-right();
+            box-shadow: 3px 1px 3px rgba(0,0,0, 0.2);
+            background-color: $grey-primary;
+            position: fixed;
+            width: spacing(13);
+            height: 100%;
+        }
+
+        main {
+            @include flex-grow();
+            @include margin-left(13);
+        }
+    }
+
 }
+

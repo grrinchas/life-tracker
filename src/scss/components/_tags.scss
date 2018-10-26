@@ -1,0 +1,39 @@
+@mixin tag-list() {
+    .tag-list {
+        @include flexbox();
+        @include padding-V(0.5);
+        li {
+            @include type-setting(small);
+            background-color: $black;
+            color: $white;
+            position: relative;
+            @include padding-LTRB(0.5, 0.25, 0.5, 0.25);
+            @include border();
+            @include margin-right(0.5);
+            @include center-V();
+            @include not-first-child() {
+                @include margin-left(0.5);
+            }
+
+            &:after {
+                content: "";
+                width: 0;
+                height: 0;
+                position: absolute;
+                right: -13px;
+                border-top: 13px solid transparent;
+                border-bottom: 13px solid transparent;
+                border-left: 13px solid $black;
+            }
+            &:before {
+                z-index: 2;
+                @include circle(0.25);
+                content: "";
+                background-color: $white;
+                position: absolute;
+                top: 10px;
+                right: -3px;
+            }
+        }
+    }
+}

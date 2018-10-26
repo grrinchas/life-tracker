@@ -3,7 +3,7 @@ module Tag.Model exposing (Tag(..), toString)
 
 type Tag
     = Fruit
-    | Vegetables
+    | Vegetable
     | Meat
     | Fish
     | Poultry
@@ -12,16 +12,20 @@ type Tag
     | Supplement
     | Legume
     | Diary
+    | Yogurt
 
 
 toString : Tag -> String
 toString tag =
     case tag of
+        Yogurt ->
+            "Yogurt"
+
         Fruit ->
             "Fruit"
 
-        Vegetables ->
-            "Vegetables"
+        Vegetable ->
+            "Vegetable"
 
         Meat ->
             "Meat"

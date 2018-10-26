@@ -1,6 +1,7 @@
 module Unit.Model exposing
     ( Unit
     , addGrams
+    , custom
     , div
     , grams
     , hectograms
@@ -27,11 +28,17 @@ type Unit
     | Milliliters Float
     | Hectomilliliters Float
     | Scalar Float
+    | Custom String Float
 
 
 zero : Unit
 zero =
     scalar 0.0
+
+
+custom : String -> Float -> Unit
+custom =
+    Custom
 
 
 scalar : Float -> Unit
@@ -78,6 +85,9 @@ toValue unit =
         Scalar val ->
             val
 
+        Custom _ val ->
+            val
+
         Milliliters val ->
             val
 
@@ -104,6 +114,9 @@ toGrams unit =
             val |> grams
 
         Milliliters val ->
+            val |> grams
+
+        Custom _ val ->
             val |> grams
 
         Milligrams val ->
@@ -136,6 +149,9 @@ toString unit =
         Hectomilliliters val ->
             hectoString val
 
+        Custom name val ->
+            name ++ " (" ++ toString (toGrams <| grams val) ++ ")"
+
         _ ->
             Debug.toString (toValue unit) ++ toLetter unit
 
@@ -147,6 +163,9 @@ toLetter unit =
             "g"
 
         Scalar val ->
+            ""
+
+        Custom _ val ->
             ""
 
         Milligrams val ->
@@ -174,6 +193,9 @@ toFloat unit =
         Scalar val ->
             val
 
+        Custom _ val ->
+            val
+
         Milligrams val ->
             val
 
@@ -198,6 +220,9 @@ mult to unit =
 
         Scalar val ->
             scalar <| to * val
+
+        Custom _ val ->
+            grams <| to * val
 
         Milligrams val ->
             milligrams <| to * val

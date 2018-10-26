@@ -1,4 +1,4 @@
-module Route.Resource exposing (milk, path, proteinPowder, rawChickenBreast, redLentils)
+module Route.Resource exposing (fageTotalZero, milk, path, proteinPowder, rawChickenBreast, redBellPepper, redLentils)
 
 
 path : String
@@ -20,3 +20,11 @@ rawChickenBreast =
 
 redLentils =
     path ++ "red_lentils.jpg"
+
+
+redBellPepper =
+    path ++ "red_bell_pepper.jpg"
+
+
+fageTotalZero =
+    path ++ "fage_total_zero.jpg"
