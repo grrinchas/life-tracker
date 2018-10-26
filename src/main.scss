@@ -12,6 +12,7 @@
 @mixin tag-list() {
     .tag-list {
         @include flexbox();
+        @include padding-V(0.5);
         li {
             @include type-setting(small);
             background-color: $black;
@@ -21,7 +22,9 @@
             @include border();
             @include margin-right(0.5);
             @include center-V();
-            @include not-first-child(margin-left, spacing(0.5));
+            @include not-first-child() {
+                @include margin-left(0.5);
+            }
 
             &:after {
                 content: "";
@@ -46,7 +49,6 @@
     }
 }
 
-
 #food-list {
     > h1 {
         @include type-setting(larger);
@@ -56,7 +58,10 @@
 .food-list {
     @include column();
     section {
-        @include not-last-child(margin-bottom, spacing(0.5));
+        @include border();
+        @include not-last-child() {
+            @include margin-bottom(0.5);
+        }
         @include flexbox();
         background-color: $grey-light;
         .left {
@@ -72,12 +77,9 @@
             @include margin-H();
             @include flex-grow();
 
-            > * {
-                @include padding-V(0.5);
-            }
-
             h3 {
                 @include type-setting(big);
+                @include padding-V(0.5);
                 @include flexbox();
                 @include justify-content(space-between);
             }
@@ -85,19 +87,38 @@
             > ul {
                 background-color: white;
                 @include border();
-                @include padding-H(0.5);
 
                 li {
                     @include flexbox();
-                    @include justify-content(space-between);
+                    position: relative;
+
+                    .name {
+                        background-color: $primary;
+                        color: $white;
+                        width: spacing(3.5);
+                        @include padding-VH(0.25, 0.5);
+                        @include not-last-child {
+                            @include border-bottom($white);
+                            @include border-right($white);
+                        }
+                    }
+
+                    .info {
+                        position: relative;
+                        width: spacing(20);
+                        @include padding-VH(0.25, 0.25);
+                        :last-child {
+                            top: 0;
+                            left: 0;
+                            position: absolute;
+                            background-color: $primary;
+                            opacity: 0.2;
+                            height: spacing(1.5);
+                        }
+                    }
+
                 }
 
-                &:last-child {
-                    display: block;
-                    background-color: red;
-                    height: spacing(2);
-                    width: spacing(10);
-                }
             }
 
         }

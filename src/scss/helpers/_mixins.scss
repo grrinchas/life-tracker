@@ -3,15 +3,15 @@
     line-height: map_get($height-scale, $value) * $line-height;
 }
 
-@mixin not-last-child($name, $value) {
+@mixin not-last-child() {
     &:not(:last-child) {
-        #{$name}: $value;
+        @content;
     }
 }
 
-@mixin not-first-child($name, $value) {
+@mixin not-first-child (){
     &:not(:first-child) {
-        #{$name}: $value;
+        @content
     }
 }
 
@@ -20,9 +20,14 @@
 
     > * {
         @include flexbox();
-        @include not-last-child(padding-bottom, spacing($vSpace));
+        @include not-last-child(){
+            @include padding-bottom($vSpace);
+        }
+
         > * {
-            @include not-first-child(padding-left, spacing($hSpace));
+            @include not-first-child(){
+                @include padding-left($hSpace);
+            }
             @for $i from 1 through length($cols) {
                 $el: nth($cols, $i);
 
@@ -32,5 +37,8 @@
             }
         }
     }
+
+
+
 
 }

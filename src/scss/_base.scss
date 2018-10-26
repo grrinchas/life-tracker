@@ -5,8 +5,7 @@ html {
 
 body {
     @include type-setting();
-    @include constrain-width(1200px);
-    background-color: $color3;
+    @include constrain-width(1000px);
     margin: 0 auto;
     color: $black;
     font-family: $font-family-primary;

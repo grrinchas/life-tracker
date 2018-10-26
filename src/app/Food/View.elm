@@ -16,17 +16,30 @@ import Unit.View
 card : Food -> Html Msg
 card ({ tags, pic, protein, carbs, fats, total, name } as food) =
     let
+        totalCalories =
+            Food.Food.totalCalories food
+
+        getPercentage cal =
+            totalCalories
+                |> toFloat
+                |> (/) (toFloat cal)
+                |> (*) 100
+                |> Debug.toString
+                |> (\result -> result ++ "%")
+
         calPerNutView ( nutrient, unit, cal ) =
-            li []
-                [ div []
-                    [ span [ class "name" ]
-                        [ Nutrient.View.simple nutrient
-                        , text ": "
-                        , Unit.View.simple unit
+            li [ classList [ ( String.toLower <| Nutrient.Model.toString nutrient, True ) ] ]
+                [ span [ class "name" ]
+                    [ Nutrient.View.simple nutrient
+                    ]
+                , span [ class "info" ]
+                    [ span []
+                        [ Unit.View.simple unit
+                        , text " / "
+                        , text <| Debug.toString cal
+                        , text "cal"
                         ]
-                    , text " = "
-                    , text <| Debug.toString cal
-                    , text "cal"
+                    , span [ class "bar", style "width" (getPercentage cal) ] []
                     ]
                 ]
     in
@@ -42,7 +55,7 @@ card ({ tags, pic, protein, carbs, fats, total, name } as food) =
                     , Unit.View.simple total
                     ]
                 , span [ class "total" ]
-                    [ text <| Debug.toString <| Food.Food.totalCalories food
+                    [ text <| Debug.toString totalCalories
                     , text "cal"
                     ]
                 ]
