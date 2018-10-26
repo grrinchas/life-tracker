@@ -8,6 +8,7 @@ module Nutrient.Model exposing
     , fats
     , phantom
     , protein
+    , toString
     , totalUnits
     , zeroCarbs
     , zeroFats
@@ -77,6 +78,25 @@ totalUnits nutrient =
             val
 
 
+toString : Nutrient -> String
+toString nutrient =
+    case nutrient of
+        Protein val ->
+            "Protein"
+
+        Fats { total } ->
+            "Fats"
+
+        Carbs { total } ->
+            "Carbs"
+
+        PhantomCarbs val ->
+            "Phantom Carbs"
+
+        PhantomFats val ->
+            "Phantom Fats"
+
+
 protein : Unit -> Nutrient
 protein =
     Protein
@@ -111,40 +131,40 @@ phantom nutrient =
             Nothing
 
 
-calPerNut : Nutrient -> ( Nutrient, Int )
+calPerNut : Nutrient -> ( Nutrient, Unit, Int )
 calPerNut nutrient =
-    ( nutrient, calories nutrient )
+    ( nutrient, totalUnits nutrient, calories nutrient )
 
 
 calories : Nutrient -> Int
 calories nutrient =
     case nutrient of
         Protein size ->
-            Unit.grams 4.0
-                |> Unit.multGrams size
+            size
+                |> Unit.mult 4.0
                 |> Unit.toFloat
                 |> round
 
         Carbs { total } ->
-            Unit.grams 4.0
-                |> Unit.multGrams total
+            total
+                |> Unit.mult 4.0
                 |> Unit.toFloat
                 |> round
 
         PhantomCarbs total ->
-            Unit.grams 4.0
-                |> Unit.multGrams total
+            total
+                |> Unit.mult 4.0
                 |> Unit.toFloat
                 |> round
 
         Fats { total } ->
-            Unit.grams 9.0
-                |> Unit.multGrams total
+            total
+                |> Unit.mult 9.0
                 |> Unit.toFloat
                 |> round
 
         PhantomFats total ->
-            Unit.grams 9.0
-                |> Unit.multGrams total
+            total
+                |> Unit.mult 9.0
                 |> Unit.toFloat
                 |> round

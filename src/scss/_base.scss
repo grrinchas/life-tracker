@@ -1,0 +1,13 @@
+
+html {
+    font-size: 14px;
+}
+
+body {
+    @include type-setting();
+    @include constrain-width(1200px);
+    background-color: $color3;
+    margin: 0 auto;
+    color: $black;
+    font-family: $font-family-primary;
+}

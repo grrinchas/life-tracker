@@ -1,0 +1,140 @@
+
+
+@function spacing($value: 1) {
+    @return $line-height * $value * 1rem;
+}
+
+
+@function spacing-quarter() {
+    @return spacing(0.25);
+}
+
+@function spacing-three-quarters() {
+    @return spacing(0.75);
+}
+
+@function spacing-half() {
+    @return spacing(0.5);
+}
+
+@function spacing-double() {
+    @return spacing(2);
+}
+
+@function spacing-triple() {
+    @return spacing(3);
+}
+
+@function spacing-quadruple() {
+    @return spacing(4);
+}
+
+@function spacing-big() {
+    @return spacing(5);
+}
+
+@function spacing-bigger() {
+    @return spacing(10);
+}
+
+@function spacing-huge() {
+    @return spacing(20);
+}
+
+
+@mixin padding($value: 1) {
+    padding: spacing($value);
+}
+
+@mixin padding-top($value: 1) {
+    padding-top: spacing($value);
+}
+
+@mixin padding-bottom($value: 1) {
+    padding-bottom: spacing($value);
+}
+
+@mixin padding-left($value: 1) {
+    padding-left: spacing($value);
+}
+
+@mixin padding-right($value: 1) {
+    padding-right: spacing($value);
+}
+
+@mixin padding-LR($left: 1, $right: 1) {
+    @include padding-left($left);
+    @include padding-right($right);
+}
+
+@mixin padding-H($value: 1) {
+    @include padding-LR($value)
+}
+
+@mixin padding-TB($top: 1, $bottom: 1) {
+    @include padding-top($top);
+    @include padding-bottom($bottom);
+}
+
+@mixin padding-V($value: 1) {
+    @include padding-TB($value, $value)
+}
+
+@mixin padding-VH($vertical: 1, $horizontal: 1) {
+    @include padding-V($vertical);
+    @include padding-H($horizontal);
+}
+
+@mixin padding-LTRB($left: 1, $top:1, $right: 1, $bottom:1) {
+    @include padding-LR($left, $right);
+    @include padding-TB($top, $bottom);
+}
+
+
+@mixin margin($value: 1) {
+    margin: spacing($value);
+}
+
+@mixin margin-top($value: 1) {
+    margin-top: spacing($value);
+}
+
+@mixin margin-bottom($value: 1) {
+    margin-bottom: spacing($value);
+}
+
+@mixin margin-left($value: 1) {
+    margin-left: spacing($value);
+}
+
+@mixin margin-right($value: 1) {
+    margin-right: spacing($value);
+}
+
+@mixin margin-LR($left: 1, $right: 1) {
+    @include margin-left($left);
+    @include margin-right($left);
+}
+
+@mixin margin-H($value: 1) {
+    @include margin-LR($value)
+}
+
+@mixin margin-TB($top: 1, $bottom: 1) {
+    @include margin-top($top);
+    @include margin-bottom($bottom);
+}
+
+@mixin margin-V($value: 1) {
+    @include margin-TB($value)
+}
+
+@mixin margin-VH($vertical: 1, $horizontal: 1) {
+    @include margin-V($vertical);
+    @include margin-H($horizontal);
+}
+
+@mixin margin-LTRB($left: 1, $top:1, $right: 1, $bottom:1) {
+    @include margin-LR($left, $right);
+    @include margin-TB($top, $bottom);
+}

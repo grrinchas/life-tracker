@@ -1,14 +1,15 @@
 module Product.Model exposing (Product)
 
-import Food.Model exposing (Food)
+import Food.Food exposing (Food)
 import Product.Shop exposing (Shop)
 import Unit.Model exposing (Unit)
+import Unit.Price exposing (Price)
 
 
 type alias Product =
     { food : Food
     , shop : Shop
-    , price : Int
+    , price : Price
     , net : Unit
     , name : String
     }

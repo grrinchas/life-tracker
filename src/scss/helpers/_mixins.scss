@@ -1,0 +1,36 @@
+@mixin type-setting($value: default) {
+    font-size: map_get($font-scale, $value);
+    line-height: map_get($height-scale, $value) * $line-height;
+}
+
+@mixin not-last-child($name, $value) {
+    &:not(:last-child) {
+        #{$name}: $value;
+    }
+}
+
+@mixin not-first-child($name, $value) {
+    &:not(:first-child) {
+        #{$name}: $value;
+    }
+}
+
+@mixin grid($cols, $hSpace: 0.25, $vSpace: 0.25) {
+    @include column();
+
+    > * {
+        @include flexbox();
+        @include not-last-child(padding-bottom, spacing($vSpace));
+        > * {
+            @include not-first-child(padding-left, spacing($hSpace));
+            @for $i from 1 through length($cols) {
+                $el: nth($cols, $i);
+
+                &:nth-child(#{$i}) {
+                    width: $el * 1%;
+                }
+            }
+        }
+    }
+
+}

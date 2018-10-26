@@ -21,7 +21,7 @@ export default merge.smart(common, {
                     {
                         loader: 'elm-webpack-loader',
                         options: {
-                            optimize: true,
+                            //optimize: true,
                         }
                     }
 

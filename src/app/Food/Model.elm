@@ -1,60 +1,36 @@
 module Food.Model exposing
-    ( Food
-    , calPerNut
-    , nutrients
-    , totalCalories
-    , totalGrams
-    , totalPhantom
+    ( Model
+    , foodPage
+    , initial
     )
 
-import Food.Tag exposing (Tag)
-import List.Extra
-import Maybe.Extra
-import Nutrient.Model as Nut exposing (Nutrient)
-import Unit.Model as Unit exposing (Unit)
+import Food.Data.Diary as Diary
+import Food.Data.Legume as Legume
+import Food.Data.Poultry as Poultry
+import Food.Data.Supplement as Supplement
+import Food.Food exposing (Food)
+import Food.Page exposing (Page)
+import Monocle.Lens exposing (Lens)
 
 
-type alias Food =
-    { tags : List Tag
-    , protein : Nutrient
-    , carbs : Nutrient
-    , fats : Nutrient
-    , total : Unit
+type alias Model =
+    { page : Page
+    , data : List Food
     }
 
 
-totalGrams : Food -> Unit
-totalGrams food =
-    nutrients food
-        |> List.map Nut.totalUnits
-        |> List.foldr Unit.addGrams Unit.zero
+foodPage : Lens Model Page
+foodPage =
+    Lens .page (\b a -> { a | page = b })
 
 
-totalPhantom : Food -> Unit
-totalPhantom ({ total } as food) =
-    totalGrams food
-        |> Unit.subGrams total
-
-
-nutrients : Food -> List Nutrient
-nutrients { protein, carbs, fats } =
-    [ protein, carbs, fats ]
-
-
-calPerNut : Food -> List ( Nutrient, Int )
-calPerNut food =
-    nutrients food
-        |> List.map Nut.phantom
-        |> Maybe.Extra.values
-        |> (++) (nutrients food)
-        |> List.map Nut.calPerNut
-
-
-totalCalories : Food -> Int
-totalCalories food =
-    nutrients food
-        |> List.map Nut.phantom
-        |> Maybe.Extra.values
-        |> (++) (nutrients food)
-        |> List.map Nut.calories
-        |> List.sum
+initial : Model
+initial =
+    { page = Food.Page.initial
+    , data =
+        [ Poultry.rawChickenBreast
+        , Supplement.wheyProtein
+        , Diary.skimmedMilk
+        , Legume.redLentils
+        ]
+    }

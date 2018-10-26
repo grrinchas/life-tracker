@@ -1,0 +1,32 @@
+
+
+@mixin border($colour: $grey-primary, $size: 1px, $type: solid) {
+    border: $size $type $colour;
+}
+
+@mixin border-top($colour: $grey-primary, $size: 1px, $type: solid) {
+    border-top: $size $type $colour;
+}
+
+@mixin border-bottom($colour: $grey-primary, $size: 1px, $type: solid) {
+    border-bottom: $size $type $colour;
+}
+
+@mixin border-left($colour: $grey-primary, $size: 1px, $type: solid) {
+    border-left: $size $type $colour;
+}
+
+@mixin border-right($colour: $grey-primary, $size: 1px, $type: solid) {
+    border-right: $size $type $colour;
+}
+
+@mixin border-LR($colour: $grey-primary, $size: 1px, $type: solid) {
+    @include border-left($colour, $size, $type);
+    @include border-right($colour, $size, $type);
+}
+
+@mixin border-TP($colour: $grey-primary, $size: 1px, $type: solid) {
+    @include border-top($colour, $size, $type);
+    @include border-bottom($colour, $size, $type);
+}
+

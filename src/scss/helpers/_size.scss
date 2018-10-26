@@ -1,0 +1,43 @@
+
+@mixin resize($width, $height, $ratio) {
+    width: $ratio * $width * 1px;
+    height: $ratio * $height * 1px;
+}
+
+@mixin rect($width: 1, $height: 1) {
+    width: spacing($width);
+    height: spacing($height);
+}
+
+@mixin square($size: 1) {
+    @include rect($size, $size);
+}
+
+@mixin fit-size() {
+    width: 100%;
+    height: 100%;
+}
+
+@mixin circle($diameter: 1) {
+    @include square($diameter);
+    border-radius: 50%;
+}
+
+
+@mixin constrain-width($width) {
+    max-width: $width;
+}
+
+@mixin constrain-height($height) {
+    max-height: $height;
+}
+
+@mixin constrain-WH($width, $height) {
+    @include constrain-width($width);
+    @include constrain-height($height);
+}
+
+
+@mixin constrain-square($size) {
+    @include constrain-WH($size, $size);
+}

@@ -1,6 +1,107 @@
+@import url('https://fonts.googleapis.com/css?family=Open+Sans:300,400,600,700');
+@import 'scss/vendors/reset';
+@import "scss/variables";
+@import "scss/helpers/flexbox";
+@import "scss/helpers/spacing";
+@import "scss/helpers/position";
+@import "scss/helpers/size";
+@import "scss/helpers/mixins";
+@import "scss/helpers/border";
+@import "scss/base";
 
-body {
+@mixin tag-list() {
+    .tag-list {
+        @include flexbox();
+        li {
+            @include type-setting(small);
+            background-color: $black;
+            color: $white;
+            position: relative;
+            @include padding-LTRB(0.5, 0.25, 0.5, 0.25);
+            @include border();
+            @include margin-right(0.5);
+            @include center-V();
+            @include not-first-child(margin-left, spacing(0.5));
 
+            &:after {
+                content: "";
+                width: 0;
+                height: 0;
+                position: absolute;
+                right: -13px;
+                border-top: 13px solid transparent;
+                border-bottom: 13px solid transparent;
+                border-left: 13px solid $black;
+            }
+            &:before {
+                z-index: 2;
+                @include circle(0.25);
+                content: "";
+                background-color: $white;
+                position: absolute;
+                top: 10px;
+                right: -3px;
+            }
+        }
+    }
+}
+
+
+#food-list {
+    > h1 {
+        @include type-setting(larger);
+    }
+}
+
+.food-list {
+    @include column();
+    section {
+        @include not-last-child(margin-bottom, spacing(0.5));
+        @include flexbox();
+        background-color: $grey-light;
+        .left {
+            @include square(9);
+            @include border-right();
+            img {
+                @include fit-size();
+            }
+        }
+
+        .right {
+            @include tag-list();
+            @include margin-H();
+            @include flex-grow();
+
+            > * {
+                @include padding-V(0.5);
+            }
+
+            h3 {
+                @include type-setting(big);
+                @include flexbox();
+                @include justify-content(space-between);
+            }
+
+            > ul {
+                background-color: white;
+                @include border();
+                @include padding-H(0.5);
+
+                li {
+                    @include flexbox();
+                    @include justify-content(space-between);
+                }
+
+                &:last-child {
+                    display: block;
+                    background-color: red;
+                    height: spacing(2);
+                    width: spacing(10);
+                }
+            }
+
+        }
+    }
 }
 
 

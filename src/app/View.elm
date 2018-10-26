@@ -1,38 +1,78 @@
 module View exposing (view)
 
 import Browser exposing (Document)
+import Color exposing (blue, green, orange, red)
 import Date.Model exposing (epoch, toPosix)
+import FontAwesome.Regular
+import FontAwesome.Solid
+import Food.Data.Diary as Diary
 import Food.Data.Poultry as Poultry
-import Food.Model
-import Html exposing (Html, a, div, p, span, text)
-import Html.Attributes exposing (href)
+import Food.Data.Supplement as Supplement
+import Food.Food
+import Food.View
+import Html exposing (Html, a, div, img, p, span, text)
+import Html.Attributes exposing (href, src)
+import Meal.Model
 import Messages exposing (Msg)
 import Model exposing (Model)
+import Svg.Path
 import Time exposing (Month(..))
+import TypedSvg exposing (path, svg)
+import TypedSvg.Attributes exposing (color, d, fill, viewBox)
+import TypedSvg.Types exposing (Fill(..))
+import Unit.Price
 
 
 view : Model -> Document Msg
 view model =
     { title = "Dennis Blog"
     , body =
-        [ div [] [ a [ href "https://www.google.co.uk" ] [ text "external" ] ]
-        , div [] [ a [ href "/about" ] [ text "about" ] ]
-        , { epoch | year = 2589, day = 3, month = Jan, hour = 23, minute = 0, second = 10, millis = 1000 }
-            |> toPosix
-            |> (\pos ->
-                    div []
-                        [ span [] [ text <| Debug.toString <| Time.toYear Time.utc pos ]
-                        , span [] [ text <| Debug.toString <| Time.toMonth Time.utc pos ]
-                        , span [] [ text <| Debug.toString <| Time.toDay Time.utc pos ]
-                        , span [] [ text <| Debug.toString <| Time.toHour Time.utc pos ]
-                        , span [] [ text <| Debug.toString <| Time.toMinute Time.utc pos ]
-                        , span [] [ text <| Debug.toString <| Time.toSecond Time.utc pos ]
-                        , span [] [ text <| Debug.toString <| Time.toMillis Time.utc pos ]
-                        , p [] [ text <| Debug.toString <| Food.Model.calPerNut Poultry.rawChickenBreast ]
-                        , p [] [ text <| Debug.toString <| Food.Model.totalPhantom Poultry.rawChickenBreast ]
-                        , p [] [ text <| Debug.toString <| Food.Model.totalGrams Poultry.rawChickenBreast ]
-                        , p [] [ text <| Debug.toString <| Food.Model.totalCalories Poultry.rawChickenBreast ]
-                        ]
-               )
+        [ Food.View.page model
         ]
     }
+
+
+chart : Html msg
+chart =
+    let
+        close =
+            "Z"
+
+        move x y =
+            String.join ""
+                [ "M", Debug.toString x, ",", Debug.toString y ]
+
+        line x y =
+            String.join ""
+                [ "L", Debug.toString x, ",", Debug.toString y ]
+
+        arc x y rotation a sweep xe xy =
+            String.join ""
+                [ "A"
+                , Debug.toString x
+                , ","
+                , Debug.toString y
+                , " "
+                , Debug.toString rotation
+                , " "
+                , Debug.toString a
+                , ","
+                , Debug.toString sweep
+                , " "
+                , Debug.toString xe
+                , ","
+                , Debug.toString xy
+                ]
+
+        _ =
+            Debug.log "" Svg.Path.arcBy
+
+        _ =
+            Debug.log "" FontAwesome.Regular.bell
+    in
+    svg [ viewBox -100.0 -100.0 200.0 200.0 ]
+        [ path [ d <| String.join " " [ move 0 0, line 100 0, arc 100 100 0 1 1 -95.9 -28.2, close ], fill <| Fill red ] []
+        , path [ d <| String.join " " [ move 0 0, line -95.9 -28.2, arc 100 100 0 0 1 65.5 -75.6, close ], fill <| Fill blue ] []
+        , path [ d <| String.join " " [ move 0 0, line 65.5 -75.6, arc 100 100 0 0 1 95.9 -28.2, close ], fill <| Fill green ] []
+        , path [ d <| String.join " " [ move 0 0, line 95.9 -28.2, arc 100 100 0 0 1 100 0, close ], fill <| Fill orange ] []
+        ]

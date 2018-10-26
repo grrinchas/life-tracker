@@ -16,10 +16,10 @@ export default {
             },
             {
                 test: /\.(png|jpg)$/,
-                loader:
-                    'file-loader',
+                loader: 'file-loader',
                 options:
                     {
+                        context: './src/asset/image/food/protein_powder.jpg',
                         name: 'images/[name].[ext]',
                     }
                 ,

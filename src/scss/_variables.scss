@@ -1,0 +1,41 @@
+
+
+// colours
+$grey-primary: rgba(230, 230, 230, 1);
+$grey-light: rgba(250, 250, 250, 1);
+$white: white;
+
+/* RGB */
+$color1: rgba(241, 232, 184, 1);
+$color2: rgba(249, 231, 132, 1);
+$color3: rgba(229, 143, 101, 1);
+$color4: rgba(208, 83, 83, 1);
+$black: #11050B;
+
+
+// typography
+$font-scale: (
+    tiny: 0.667rem,
+    small: 0.79rem,
+    default: 1rem,
+    big: 1.5rem,
+    large: 2.25rem,
+    larger: 3.75rem,
+    huge: 5.063rem,
+    );
+
+$height-scale: (
+    tiny: 1,
+    small: 1,
+    default: 1,
+    big: 1,
+    large: 1.5,
+    larger: 1.5,
+    huge: 2,
+);
+
+$font-family-primary: 'Open Sans', sans-serif;
+$line-height: 1.5;
+
+
+

@@ -1,4 +1,4 @@
-module Unit.Price exposing (Price, add, price, zero)
+module Unit.Price exposing (Price, add, fromFloat, multBy, price, zero)
 
 
 type Price
@@ -23,6 +23,7 @@ price a p =
 fromFloat : Float -> Price
 fromFloat p =
     floor p
+        |> Basics.toFloat
         |> (-) p
         |> (*) 100
         |> round
@@ -39,7 +40,7 @@ add (Price a1 p1) (Price a2 p2) =
 
 
 multBy : Float -> Price -> Price
-multBy scalar price =
-    toFloat price
+multBy scalar p =
+    toFloat p
         |> (*) scalar
         |> fromFloat

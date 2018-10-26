@@ -4,11 +4,17 @@ module Unit.Model exposing
     , div
     , grams
     , hectograms
+    , hectomilliliters
     , kilograms
     , milligrams
+    , milliliters
+    , mult
     , subGrams
     , toFloat
     , toGrams
+    , toLetter
+    , toString
+    , toValue
     , zero
     )
 
@@ -18,11 +24,19 @@ type Unit
     | Milligrams Float
     | Kilograms Float
     | Hectograms Float
+    | Milliliters Float
+    | Hectomilliliters Float
+    | Scalar Float
 
 
 zero : Unit
 zero =
-    grams 0.0
+    scalar 0.0
+
+
+scalar : Float -> Unit
+scalar =
+    Scalar
 
 
 grams : Float -> Unit
@@ -45,11 +59,52 @@ kilograms =
     Kilograms
 
 
+milliliters : Float -> Unit
+milliliters =
+    Milliliters
+
+
+hectomilliliters : Float -> Unit
+hectomilliliters =
+    Hectomilliliters
+
+
+toValue : Unit -> Float
+toValue unit =
+    case unit of
+        Grams val ->
+            val
+
+        Scalar val ->
+            val
+
+        Milliliters val ->
+            val
+
+        Milligrams val ->
+            val
+
+        Hectograms val ->
+            val
+
+        Hectomilliliters val ->
+            val
+
+        Kilograms val ->
+            val
+
+
 toGrams : Unit -> Unit
 toGrams unit =
     case unit of
         Grams val ->
-            grams val
+            val |> grams
+
+        Scalar val ->
+            val |> grams
+
+        Milliliters val ->
+            val |> grams
 
         Milligrams val ->
             val / 1000 |> grams
@@ -57,8 +112,57 @@ toGrams unit =
         Hectograms val ->
             val * 100 |> grams
 
+        Hectomilliliters val ->
+            val * 100 |> grams
+
         Kilograms val ->
             val * 1000 |> grams
+
+
+toString : Unit -> String
+toString unit =
+    let
+        hectoString val =
+            if val == 1 then
+                toLetter unit
+
+            else
+                Debug.toString (toValue unit) ++ " (" ++ toLetter unit ++ ")"
+    in
+    case unit of
+        Hectograms val ->
+            hectoString val
+
+        Hectomilliliters val ->
+            hectoString val
+
+        _ ->
+            Debug.toString (toValue unit) ++ toLetter unit
+
+
+toLetter : Unit -> String
+toLetter unit =
+    case unit of
+        Grams val ->
+            "g"
+
+        Scalar val ->
+            ""
+
+        Milligrams val ->
+            "mg"
+
+        Milliliters val ->
+            "ml"
+
+        Hectograms val ->
+            "100g"
+
+        Hectomilliliters val ->
+            "100ml"
+
+        Kilograms val ->
+            "kg"
 
 
 toFloat : Unit -> Float
@@ -67,14 +171,48 @@ toFloat unit =
         Grams val ->
             val
 
+        Scalar val ->
+            val
+
         Milligrams val ->
+            val
+
+        Milliliters val ->
             val
 
         Hectograms val ->
             val
 
+        Hectomilliliters val ->
+            val
+
         Kilograms val ->
             val
+
+
+mult : Float -> Unit -> Unit
+mult to unit =
+    case unit of
+        Grams val ->
+            grams <| to * val
+
+        Scalar val ->
+            scalar <| to * val
+
+        Milligrams val ->
+            milligrams <| to * val
+
+        Hectograms val ->
+            hectograms <| to * val
+
+        Hectomilliliters val ->
+            hectomilliliters <| to * val
+
+        Kilograms val ->
+            kilograms <| to * val
+
+        Milliliters val ->
+            milliliters <| to * val
 
 
 addGrams : Unit -> Unit -> Unit
