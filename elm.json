@@ -19,10 +19,12 @@
             "elm/url": "1.0.0",
             "elm-community/list-extra": "8.1.0",
             "elm-community/maybe-extra": "5.0.0",
+            "elm-community/string-extra": "4.0.0",
             "elm-community/typed-svg": "4.0.0",
             "ryannhg/date-format": "2.0.1"
         },
         "indirect": {
+            "elm/regex": "1.0.0",
             "elm/virtual-dom": "1.0.2"
         }
     },

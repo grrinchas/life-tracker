@@ -3,7 +3,7 @@ module Route.View exposing (view)
 import Browser exposing (Document)
 import Component.Layout.View
 import Food.View
-import Html exposing (div, text)
+import Html exposing (Html)
 import Messages exposing (Msg)
 import Model exposing (Model)
 import Route.Model exposing (Route(..))
@@ -32,6 +32,18 @@ view ({ nav } as model) =
 
         Meal name ->
             { title = name
+            , body =
+                Component.Layout.View.notImplemented model
+            }
+
+        Sport ->
+            { title = "Sport"
+            , body =
+                Component.Layout.View.notImplemented model
+            }
+
+        Nutrition ->
+            { title = "Nutrition"
             , body =
                 Component.Layout.View.notImplemented model
             }

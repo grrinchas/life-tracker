@@ -63,6 +63,20 @@
                 }
             }
 
+            .active {
+                @include black-white(true);
+                @include border($grey-primary);
+                span {
+                    @include border($grey-primary);
+                }
+                &::after {
+                    border-left-color: $white;
+                }
+                &::before {
+                    border-left-color: $grey-primary;
+                }
+            }
+
             @if $hoverable {
                 @include hoverable();
             }

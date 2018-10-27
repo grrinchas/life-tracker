@@ -1,0 +1,19 @@
+@mixin breadcrumb() {
+
+    .breadcrumb {
+        @include center-V();
+        li {
+            font-weight: bold;
+            @include foreground-white();
+            @include not-first-child() {
+                @include margin-left(0.25);
+            }
+            &.active {
+                a {
+                    color: $primary;
+                }
+            }
+        }
+    }
+}
+
