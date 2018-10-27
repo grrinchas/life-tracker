@@ -1,4 +1,4 @@
-module Route.Resource exposing (fageTotalZero, milk, path, proteinPowder, rawChickenBreast, redBellPepper, redLentils)
+module Route.Resource exposing (banana, blueberriesAsda, fageTotalZero, granolaTropical, milk, path, proteinPowder, rawChickenBreast, redBellPepper, redLentils)
 
 
 path : String
@@ -6,25 +6,37 @@ path =
     "/images/"
 
 
+banana =
+    path ++ "banana.jpg"
+
+
+blueberriesAsda =
+    path ++ "blueberries_asda.jpg"
+
+
 proteinPowder =
-    path ++ "protein_powder.jpg"
+    path ++ "protein_powder_whey.jpg"
 
 
 milk =
-    path ++ "milk.jpg"
+    path ++ "milk_skimmed_sainsbury.jpg"
 
 
 rawChickenBreast =
-    path ++ "raw_chicken_breast.jpg"
+    path ++ "chicken_breast_raw_asda.jpg"
 
 
 redLentils =
-    path ++ "red_lentils.jpg"
+    path ++ "lentils_red_tsr.jpg"
 
 
 redBellPepper =
-    path ++ "red_bell_pepper.jpg"
+    path ++ "pepper_red_bell.jpg"
 
 
 fageTotalZero =
-    path ++ "fage_total_zero.jpg"
+    path ++ "yogurt_fage_total_zero.jpg"
+
+
+granolaTropical =
+    path ++ "granola_tropical.jpg"

@@ -4,7 +4,10 @@ module Food.Model exposing
     , initial
     )
 
+import Food.Data.Berry as Berry
 import Food.Data.Diary as Diary
+import Food.Data.Fruit as Fruit
+import Food.Data.Grain as Grain
 import Food.Data.Legume as Legume
 import Food.Data.Poultry as Poultry
 import Food.Data.Supplement as Supplement
@@ -35,5 +38,8 @@ initial =
         , Legume.redLentils
         , Vegetable.redBellPepper
         , Diary.fageTotalZero
+        , Grain.granolaTropical
+        , Berry.blueberriesAsda
+        , Fruit.banana
         ]
     }

@@ -6,6 +6,7 @@ type Tag
     | Vegetable
     | Meat
     | Fish
+    | Grain
     | Poultry
     | Nut
     | Seed
@@ -13,6 +14,7 @@ type Tag
     | Legume
     | Diary
     | Yogurt
+    | Berry
 
 
 list : List Tag
@@ -21,8 +23,10 @@ list =
     , Vegetable
     , Meat
     , Fish
+    , Grain
     , Poultry
     , Nut
+    , Berry
     , Seed
     , Supplement
     , Legume
@@ -34,8 +38,14 @@ list =
 toString : Tag -> String
 toString tag =
     case tag of
+        Berry ->
+            "Berry"
+
         Yogurt ->
             "Yogurt"
+
+        Grain ->
+            "Grain"
 
         Fruit ->
             "Fruit"
