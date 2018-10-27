@@ -7,6 +7,15 @@
     .food-list {
         @include column();
         section {
+            max-height: 100vh;
+            transition: all 0.2s ease-out;
+            overflow: hidden;
+            &.hidden {
+                max-height: 0;
+                margin: 0 !important;
+                @include border($white);
+            }
+
             @include border();
             @include not-last-child() {
                 @include margin-bottom(0.5);
@@ -14,7 +23,7 @@
             @include flexbox();
             background-color: $grey-light;
             .left {
-                @include square(9);
+                @include square(9.5);
                 @include border-right();
                 img {
                     @include fit-size();
@@ -23,6 +32,9 @@
 
             .right {
                 @include tag-list();
+                .tag-list {
+                    @include padding-V(0.5);
+                }
                 @include margin-H();
                 @include flex-grow();
 

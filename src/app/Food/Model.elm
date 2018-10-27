@@ -5,6 +5,7 @@ module Food.Model exposing
     )
 
 import Food.Data.Berry as Berry
+import Food.Data.Condiment as Condiment
 import Food.Data.Diary as Diary
 import Food.Data.Fruit as Fruit
 import Food.Data.Grain as Grain
@@ -36,10 +37,14 @@ initial =
         , Supplement.wheyProtein
         , Diary.skimmedMilk
         , Legume.redLentils
+        , Legume.riceBasmati
+        , Legume.riceWhite
         , Vegetable.redBellPepper
         , Diary.fageTotalZero
+        , Condiment.ketchup
         , Grain.granolaTropical
         , Berry.blueberriesAsda
         , Fruit.banana
+        , Vegetable.mixedVegetableCanned
         ]
     }

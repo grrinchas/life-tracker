@@ -52,7 +52,7 @@ main : Program Value Model Msg
 main =
     Browser.application
         { init = initial
-        , view = Route.View.view
+        , view = View.view
         , update = Resolver.resolve
         , subscriptions = subscriptions
         , onUrlRequest = OnRoute << OnUrlRequest

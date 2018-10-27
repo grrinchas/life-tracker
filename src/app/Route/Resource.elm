@@ -1,9 +1,25 @@
-module Route.Resource exposing (banana, blueberriesAsda, fageTotalZero, granolaTropical, milk, path, proteinPowder, rawChickenBreast, redBellPepper, redLentils)
+module Route.Resource exposing (banana, blueberriesAsda, fageTotalZero, granolaTropical, ketchup, milk, path, proteinPowder, rawChickenBreast, redBellPepper, redLentils, riceBasmatiSainsbury, riceWhiteSainsbury, vegetableMixedCanned)
 
 
 path : String
 path =
     "/images/"
+
+
+ketchup =
+    path ++ "ketchup.jpg"
+
+
+vegetableMixedCanned =
+    path ++ "vegetable_mixed_canned.jpg"
+
+
+riceWhiteSainsbury =
+    path ++ "rice_white_sainsbury.jpg"
+
+
+riceBasmatiSainsbury =
+    path ++ "rice_basmati_sainsbury.jpg"
 
 
 banana =

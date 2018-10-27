@@ -15,6 +15,9 @@ type Tag
     | Diary
     | Yogurt
     | Berry
+    | Canned
+    | Fresh
+    | Condiment
 
 
 list : List Tag
@@ -32,12 +35,24 @@ list =
     , Legume
     , Diary
     , Yogurt
+    , Canned
+    , Fresh
+    , Condiment
     ]
 
 
 toString : Tag -> String
 toString tag =
     case tag of
+        Condiment ->
+            "Condiment"
+
+        Fresh ->
+            "Fresh"
+
+        Canned ->
+            "Canned"
+
         Berry ->
             "Berry"
 

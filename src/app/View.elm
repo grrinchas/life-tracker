@@ -2,6 +2,7 @@ module View exposing (view)
 
 import Browser exposing (Document)
 import Color exposing (blue, green, orange, red)
+import Component.Layout.View
 import Date.Model exposing (epoch, toPosix)
 import FontAwesome.Regular
 import FontAwesome.Solid
@@ -15,6 +16,7 @@ import Html.Attributes exposing (href, src)
 import Meal.Model
 import Messages exposing (Msg)
 import Model exposing (Model)
+import Route.Model exposing (Route(..))
 import Svg.Path
 import Time exposing (Month(..))
 import TypedSvg exposing (path, svg)
@@ -24,12 +26,50 @@ import Unit.Price
 
 
 view : Model -> Document Msg
-view model =
-    { title = "Dennis Blog"
-    , body =
-        [ Food.View.page model
-        ]
-    }
+view ({ nav } as model) =
+    case nav.route of
+        Home ->
+            { title = "Home"
+            , body =
+                Component.Layout.View.notImplemented model
+            }
+
+        Calendar ->
+            { title = "Calendar"
+            , body =
+                Component.Layout.View.notImplemented model
+            }
+
+        Meals ->
+            { title = "Meals"
+            , body =
+                Component.Layout.View.notImplemented model
+            }
+
+        Meal name ->
+            { title = name
+            , body =
+                Component.Layout.View.notImplemented model
+            }
+
+        Sport ->
+            { title = "Sport"
+            , body =
+                Component.Layout.View.notImplemented model
+            }
+
+        Nutrition ->
+            { title = "Nutrition"
+            , body =
+                Component.Layout.View.notImplemented model
+            }
+
+        Products ->
+            { title = "Products"
+            , body =
+                Food.View.page model
+                    |> Component.Layout.View.simple model
+            }
 
 
 chart : Html msg

@@ -7,32 +7,47 @@
     @include tag-list($flip: true, $margin-bottom: 0.25, $hoverable: true);
 
     .tag-list {
-        @include padding-VH(0.5, 1);
+        @include margin(0.5)
+    }
+    .menu {
+        ul {
+            transition: max-height 0.2s ease;
+            overflow: hidden;
+            max-height: 0;
+        }
+
+        &.active {
+            ul {
+                max-height: 100vh;
+            }
+        }
     }
 
     h3 {
+        @include hoverable();
         @include padding-VH(0.5, 1);
-        @include type-setting(big);
         @include border-bottom();
-        @include padding-top();
-        @include padding-bottom(0.25);
-        text-align: right;
+        font-weight: bold;
+        @include svg-icon(14px);
+        @include center-V();
+        @include justify-content(space-between);
     }
-
 
     li {
-        @include center-V();
         @include border-bottom();
+        @include svg-icon();
         a {
+            @include center-V();
             @include padding-VH(0.5, 1);
-            width: 100%;
-        }
-        &.active {
-            @include foreground-white();
-            @include background-grey-primary();
+            &.active {
+                @include background-grey-primary();
+            }
+            svg {
+                @include margin-right(0.5);
+            }
+
         }
     }
-
 
 }
 

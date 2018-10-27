@@ -1,7 +1,6 @@
 @mixin tag-list($flip: false, $margin-bottom: 0, $margin-right: 1,$circle-colour: $grey-light, $hoverable: false) {
     .tag-list {
         @include flexbox();
-        @include padding-V(0.5);
         @include flex-wrap(wrap);
 
 
@@ -63,18 +62,8 @@
                 }
             }
 
-            .active {
-                @include black-white(true);
-                @include border($grey-primary);
-                span {
-                    @include border($grey-primary);
-                }
-                &::after {
-                    border-left-color: $white;
-                }
-                &::before {
-                    border-left-color: $grey-primary;
-                }
+            &.inactive {
+                opacity: 0.3;
             }
 
             @if $hoverable {

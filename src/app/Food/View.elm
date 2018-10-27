@@ -3,6 +3,7 @@ module Food.View exposing (page)
 import Food.Food exposing (Food)
 import Html exposing (..)
 import Html.Attributes exposing (..)
+import Lib.Filter
 import List.Extra
 import Messages exposing (Msg)
 import Model exposing (Model)
@@ -13,9 +14,12 @@ import Unit.Model
 import Unit.View
 
 
-card : Food -> Html Msg
-card ({ tags, pic, protein, carbs, fats, total, name } as food) =
+card : Model -> Food -> Html Msg
+card model ({ tags, pic, protein, carbs, fats, total, name } as food) =
     let
+        filtered =
+            Lib.Filter.apply model.food.data .tags model.aside.tagsFilter
+
         totalCalories =
             Food.Food.totalCalories food
 
@@ -29,7 +33,11 @@ card ({ tags, pic, protein, carbs, fats, total, name } as food) =
                 |> (\result -> result ++ "%")
 
         calPerNutView ( nutrient, unit, cal ) =
-            li [ classList [ ( String.toLower <| Nutrient.Model.toString nutrient, True ) ] ]
+            li
+                [ classList
+                    [ ( String.toLower <| Nutrient.Model.toString nutrient, True )
+                    ]
+                ]
                 [ span [ class "name" ]
                     [ Nutrient.View.simple nutrient
                     ]
@@ -46,7 +54,7 @@ card ({ tags, pic, protein, carbs, fats, total, name } as food) =
                     ]
                 ]
     in
-    section []
+    section [ classList [ ( "hidden", not <| List.member food filtered ) ] ]
         [ div [ class "left" ]
             [ img [ src pic ] []
             ]
@@ -65,13 +73,18 @@ card ({ tags, pic, protein, carbs, fats, total, name } as food) =
             , ul [] <|
                 List.map calPerNutView (Food.Food.calPerNut food)
             , footer []
-                [ Tag.View.listView tags ]
+                [ Tag.View.listView
+                    { tags = tags
+                    , action = Nothing
+                    , classes = \_ -> []
+                    }
+                ]
             ]
         ]
 
 
 page : Model -> Html Msg
-page { food } =
+page ({ food, aside } as model) =
     main_ [ id "food-list" ]
         [ h1 []
             [ text "Food List"
@@ -80,5 +93,5 @@ page { food } =
             , text ")"
             ]
         , div [ class "food-list" ] <|
-            List.map card food.data
+            List.map (card model) food.data
         ]

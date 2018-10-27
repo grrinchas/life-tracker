@@ -9,7 +9,7 @@ import Unit.Model as Unit
 
 blueberriesAsda : Food
 blueberriesAsda =
-    { tags = [ Berry ]
+    { tags = [ Berry, Fresh ]
     , name = "Blueberries"
     , pic = Route.Resource.blueberriesAsda
     , protein =

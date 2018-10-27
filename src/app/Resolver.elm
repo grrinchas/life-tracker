@@ -1,5 +1,6 @@
 module Resolver exposing (resolve)
 
+import Component.Aside.Resolver
 import Messages exposing (Msg(..))
 import Model exposing (Model)
 import Route.Resolver
@@ -13,3 +14,6 @@ resolve message model =
 
         OnRoute msg ->
             Route.Resolver.resolve msg model
+
+        OnAside msg ->
+            Component.Aside.Resolver.resolve msg model

@@ -1,11 +1,13 @@
 module Model exposing
     ( Model
     , initial
+    , modelAside
     , modelConfig
     , modelFood
     , modelNav
     )
 
+import Component.Aside.Model
 import Config.Model exposing (Config)
 import Food.Model
 import Monocle.Lens exposing (Lens)
@@ -16,6 +18,7 @@ type alias Model =
     { nav : Navigation
     , config : Config
     , food : Food.Model.Model
+    , aside : Component.Aside.Model.Aside
     }
 
 
@@ -24,7 +27,13 @@ initial config nav =
     { nav = nav
     , config = config
     , food = Food.Model.initial
+    , aside = Component.Aside.Model.initial
     }
+
+
+modelAside : Lens Model Component.Aside.Model.Aside
+modelAside =
+    Lens .aside (\b a -> { a | aside = b })
 
 
 modelFood : Lens Model Food.Model.Model

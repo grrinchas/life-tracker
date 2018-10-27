@@ -7,5 +7,9 @@ import './asset/image/food/yogurt_fage_total_zero.jpg'
 import './asset/image/food/granola_tropical.jpg'
 import './asset/image/food/blueberries_asda.jpg'
 import './asset/image/food/banana.jpg'
+import './asset/image/food/rice_basmati_sainsbury.jpg'
+import './asset/image/food/rice_white_sainsbury.jpg'
+import './asset/image/food/vegetable_mixed_canned.jpg'
+import './asset/image/food/ketchup.jpg'
 
 
