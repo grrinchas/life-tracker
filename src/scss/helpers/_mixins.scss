@@ -15,6 +15,18 @@
     }
 }
 
+@mixin hoverable() {
+    &:hover {
+        cursor: pointer;
+    }
+}
+
+@mixin not-hoverable() {
+    &:hover {
+        cursor: initial;
+    }
+}
+
 @mixin grid($cols, $hSpace: 0.25, $vSpace: 0.25) {
     @include column();
 

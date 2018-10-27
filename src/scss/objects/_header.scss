@@ -3,7 +3,7 @@
     @include padding-H(1);
     @include center-V();
     @include justify-content(space-between);
-    box-shadow: 1px 3px 3px rgba(0,0,0, 0.2);
+    box-shadow: 1px 3px 3px rgba(0,0,0, 0.2), 1px 1px 1px rgba(0,0,0, 0.2);
     background-color: $black;
     width: 100%;
     position: fixed;

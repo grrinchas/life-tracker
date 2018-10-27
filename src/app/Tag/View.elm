@@ -9,7 +9,7 @@ listView : List Tag -> Html msg
 listView list =
     let
         tagView tag =
-            li [] [ text <| Tag.Model.toString tag ]
+            li [] [ text <| Tag.Model.toString tag, span [] [] ]
     in
     ul [ class "tag-list" ] <|
         List.map tagView list

@@ -1,39 +1,72 @@
-@mixin tag-list() {
+@mixin tag-list($flip: false, $margin-bottom: 0, $margin-right: 1,$circle-colour: $grey-light, $hoverable: false) {
     .tag-list {
         @include flexbox();
         @include padding-V(0.5);
+        @include flex-wrap(wrap);
+
+
         li {
+            @include black-white();
             @include type-setting(small);
-            background-color: $black;
-            color: $white;
+            @include margin-bottom($margin-bottom);
+            @include margin-right($margin-right);
+            @include padding-V(0.25);
+            @include padding-left(0.25);
+            @include padding-right(0.5);
+            @include border($black);
             position: relative;
-            @include padding-LTRB(0.5, 0.25, 0.5, 0.25);
-            @include border();
-            @include margin-right(0.5);
-            @include center-V();
-            @include not-first-child() {
-                @include margin-left(0.5);
+
+            &::after, &::before {
+                left: 100%;
+                top: 50%;
+                border: solid transparent;
+                content: " ";
+                height: 0;
+                width: 0;
+                position: absolute;
+                pointer-events: none;
             }
 
-            &:after {
-                content: "";
-                width: 0;
-                height: 0;
-                position: absolute;
-                right: -13px;
-                border-top: 13px solid transparent;
-                border-bottom: 13px solid transparent;
-                border-left: 13px solid $black;
+            &::after {
+                border-left-color: $black;
+                border-width: 13px;
+                margin-top: -13px;
             }
-            &:before {
-                z-index: 2;
-                @include circle(0.25);
-                content: "";
-                background-color: $white;
+            &::before {
+                border-left-color: $black;
+                border-width: 14px;
+                margin-top: -14px;
+            }
+
+            span {
+                @include border($black);
+                @include circle(0.33);
+                display: block;
+                background-color: $circle-colour;
                 position: absolute;
+                right: -4px;
                 top: 10px;
-                right: -3px;
+                z-index: 2;
+            }
+
+            @if $flip {
+                @include black-white(true);
+                @include border($grey-primary);
+                span {
+                    @include border($grey-primary);
+                }
+                &::after {
+                    border-left-color: $white;
+                }
+                &::before {
+                    border-left-color: $grey-primary;
+                }
+            }
+
+            @if $hoverable {
+                @include hoverable();
             }
         }
+
     }
 }

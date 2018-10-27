@@ -1,0 +1,20 @@
+@mixin aside() {
+    @include padding();
+    @include border-right();
+    @include background-grey-light();
+    //@include background-grey-primary();
+    //box-shadow: 2px -1px 5px rgba(193, 24, 11, 0.4), 1px -2px 3px rgba(0, 0, 0, 0.6);
+    position: fixed;
+    width: spacing(13);
+    height: 100%;
+    @include tag-list($flip: true, $margin-bottom: 0.25, $hoverable: true);
+
+    h3 {
+        @include type-setting(big);
+
+        @include border-bottom();
+        @include padding-bottom(0.25);
+    }
+
+}
+

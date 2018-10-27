@@ -1,0 +1,55 @@
+@mixin background-white() {
+    background-color: $white;
+}
+
+@mixin background-black() {
+    background-color: $black;
+}
+
+@mixin background-primary() {
+    background-color: $primary;
+}
+@mixin background-grey-light() {
+    background-color: $grey-light;
+}
+@mixin background-grey-primary() {
+    background-color: $grey-primary;
+}
+
+@mixin foreground-white() {
+    color: $white;
+}
+
+@mixin foreground-black() {
+    color: $black;
+}
+
+@mixin black-white($flip: false) {
+    @if $flip {
+        @include background-white();
+        @include foreground-black();
+    }
+    @else {
+        @include background-black();
+        @include foreground-white();
+    }
+}
+
+
+@mixin white-black() {
+}
+
+
+@mixin foreground-primary() {
+    color: $primary;
+}
+@mixin foreground-grey-light() {
+    color: $grey-light;
+}
+@mixin foreground-grey-primary() {
+    color: $grey-primary;
+}
+
+
+
+

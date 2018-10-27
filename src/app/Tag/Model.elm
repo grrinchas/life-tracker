@@ -1,4 +1,4 @@
-module Tag.Model exposing (Tag(..), toString)
+module Tag.Model exposing (Tag(..), list, toString)
 
 
 type Tag
@@ -13,6 +13,22 @@ type Tag
     | Legume
     | Diary
     | Yogurt
+
+
+list : List Tag
+list =
+    [ Fruit
+    , Vegetable
+    , Meat
+    , Fish
+    , Poultry
+    , Nut
+    , Seed
+    , Supplement
+    , Legume
+    , Diary
+    , Yogurt
+    ]
 
 
 toString : Tag -> String
