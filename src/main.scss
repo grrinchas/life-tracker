@@ -7,6 +7,7 @@
 @import "scss/variables";
 
 // helpers
+@import "scss/helpers/general";
 @import "scss/helpers/flexbox";
 @import "scss/helpers/spacing";
 @import "scss/helpers/position";
@@ -29,6 +30,7 @@
 // components
 // pages
 @import "scss/pages/products";
+@import "scss/pages/calendar";
 
 
 

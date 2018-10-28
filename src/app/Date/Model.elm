@@ -1,6 +1,6 @@
-module Date.Model exposing (Date, epoch, toPosix)
+module Date.Model exposing (Date, addDays, daysInMonth, daysInYear, epoch, fromPosix, isLeapYear, monthFullName, monthList, monthShortName, toMillis, toPosix, weekdayFullName, weekdayLetterName, weekdayList, weekdayShortName)
 
-import Time exposing (Month(..), Posix)
+import Time exposing (Month(..), Posix, Weekday(..))
 
 
 type alias Date =
@@ -11,6 +11,7 @@ type alias Date =
     , minute : Int
     , second : Int
     , millis : Int
+    , weekday : Weekday
     }
 
 
@@ -23,7 +24,37 @@ epoch =
     , minute = 0
     , second = 0
     , millis = 0
+    , weekday = Thu
     }
+
+
+weekdayList : List Weekday
+weekdayList =
+    [ Mon
+    , Tue
+    , Wed
+    , Thu
+    , Fri
+    , Sat
+    , Sun
+    ]
+
+
+monthList : List Month
+monthList =
+    [ Jan
+    , Feb
+    , Mar
+    , Apr
+    , May
+    , Jun
+    , Jul
+    , Aug
+    , Sep
+    , Oct
+    , Nov
+    , Dec
+    ]
 
 
 isLeapYear : Int -> Bool
@@ -49,14 +80,60 @@ daysInYear year =
             365
 
 
-daysInMonth : Bool -> Month -> Int
-daysInMonth leap month =
+monthShortName : Month -> String
+monthShortName month =
+    monthFullName month
+        |> String.left 3
+
+
+monthFullName : Month -> String
+monthFullName month =
+    case month of
+        Jan ->
+            "January"
+
+        Feb ->
+            "February"
+
+        Mar ->
+            "March"
+
+        Apr ->
+            "April"
+
+        May ->
+            "May"
+
+        Jun ->
+            "June"
+
+        Jul ->
+            "July"
+
+        Aug ->
+            "August"
+
+        Sep ->
+            "September"
+
+        Oct ->
+            "October"
+
+        Nov ->
+            "November"
+
+        Dec ->
+            "December"
+
+
+daysInMonth : Int -> Month -> Int
+daysInMonth year month =
     case month of
         Jan ->
             31
 
         Feb ->
-            case leap of
+            case isLeapYear year of
                 True ->
                     29
 
@@ -134,6 +211,43 @@ monthToInt month =
             12
 
 
+weekdayFullName : Weekday -> String
+weekdayFullName week =
+    case week of
+        Mon ->
+            "Monday"
+
+        Tue ->
+            "Tuesday"
+
+        Wed ->
+            "Wednesday"
+
+        Thu ->
+            "Thursday"
+
+        Fri ->
+            "Friday"
+
+        Sat ->
+            "Saturday"
+
+        Sun ->
+            "Sunday"
+
+
+weekdayShortName : Weekday -> String
+weekdayShortName week =
+    weekdayFullName week
+        |> String.left 3
+
+
+weekdayLetterName : Weekday -> String
+weekdayLetterName week =
+    weekdayFullName week
+        |> String.left 1
+
+
 monthsBefore : Month -> List Month
 monthsBefore month =
     case month of
@@ -174,14 +288,46 @@ monthsBefore month =
             [ Jan, Feb, Mar, Apr, May, Jul, Jun, Aug, Sep, Oct, Nov ]
 
 
+addDays : Date -> Int -> Date
+addDays date days =
+    toMillis date
+        |> (+) (days * 86400000)
+        |> fromMillis
+
+
+fromPosix : Posix -> Date
+fromPosix posix =
+    { year = Time.toYear Time.utc posix
+    , month = Time.toMonth Time.utc posix
+    , day = Time.toDay Time.utc posix
+    , hour = Time.toHour Time.utc posix
+    , minute = Time.toMinute Time.utc posix
+    , second = Time.toSecond Time.utc posix
+    , millis = Time.toMillis Time.utc posix
+    , weekday = Time.toWeekday Time.utc posix
+    }
+
+
+fromMillis : Int -> Date
+fromMillis millis =
+    Time.millisToPosix millis
+        |> fromPosix
+
+
 toPosix : Date -> Posix
-toPosix ({ year, month, day, hour, minute, second, millis } as date) =
+toPosix date =
+    toMillis date
+        |> Time.millisToPosix
+
+
+toMillis : Date -> Int
+toMillis ({ year, month, day, hour, minute, second, millis } as date) =
     [ List.range 1970 (year - 1)
         |> List.map daysInYear
         |> List.foldr (+) 0
         |> (*) 86400
     , monthsBefore month
-        |> List.map (daysInMonth <| isLeapYear year)
+        |> List.map (daysInMonth year)
         |> List.foldr (+) 0
         |> (*) 86400
     , (day - 1) * 86400
@@ -192,4 +338,3 @@ toPosix ({ year, month, day, hour, minute, second, millis } as date) =
         |> List.foldr (+) 0
         |> (*) 1000
         |> (+) millis
-        |> Time.millisToPosix

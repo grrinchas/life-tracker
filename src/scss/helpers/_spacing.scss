@@ -68,7 +68,7 @@
 }
 
 @mixin padding-H($value: 1) {
-    @include padding-LR($value)
+    @include padding-LR($value, $value);
 }
 
 @mixin padding-TB($top: 1, $bottom: 1) {

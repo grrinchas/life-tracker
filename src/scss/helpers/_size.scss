@@ -7,6 +7,10 @@
 @mixin rect($width: 1, $height: 1) {
     width: spacing($width);
     height: spacing($height);
+    min-width: spacing($width);
+    min-height: spacing($height);
+    max-width: spacing($width);
+    max-height: spacing($height);
 }
 
 @mixin square($size: 1) {

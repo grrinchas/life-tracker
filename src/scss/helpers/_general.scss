@@ -1,0 +1,10 @@
+@function replicate($value, $times) {
+    $list: ();
+
+    @for $i from 1 through $times {
+        $list: append($list, $value);
+    }
+
+    @return $list
+
+}

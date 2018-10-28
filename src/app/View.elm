@@ -1,6 +1,7 @@
 module View exposing (view)
 
 import Browser exposing (Document)
+import Calendar.View
 import Color exposing (blue, green, orange, red)
 import Component.Layout.View
 import Date.Model exposing (epoch, toPosix)
@@ -37,7 +38,8 @@ view ({ nav } as model) =
         Calendar ->
             { title = "Calendar"
             , body =
-                Component.Layout.View.notImplemented model
+                Calendar.View.yearView model
+                    |> Component.Layout.View.simple model
             }
 
         Meals ->

@@ -1,0 +1,38 @@
+
+#calendar {
+    @include padding-VH(1, 1);
+    @include grid($cols: replicate(100/4, 4), $justify: center, $vSpace: 1, $hSpace: 1);
+    @include center-middle();
+    .month {
+        font-size: 12px;
+        @include border();
+        @include background-grey-light();
+
+        h1 {
+            @include type-setting(big);
+            @include padding-V(0.25);
+            @include border-bottom();
+            background-color: $grey-primary;
+            text-align: center;
+        }
+
+        .body {
+            @include padding(0.5);
+            .today {
+                @include background-primary();
+                @include foreground-white();
+            }
+            .outlier {
+                opacity: 0.4;
+            }
+            .weekdays {
+                font-weight: bold;
+            }
+            @include grid($cols: replicate(100/7, 7), $vSpace: 0, $hSpace: 0.5) {
+                @include circle(1.25);
+                @include center-middle();
+                @include hoverable();
+            }
+        }
+    }
+}

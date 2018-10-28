@@ -2,14 +2,19 @@ module Main exposing (main)
 
 import Browser
 import Browser.Navigation exposing (Key)
+import Calendar.Calendar exposing (calendarNow)
 import Calendar.Messages exposing (CalendarMsg(..))
+import Calendar.Model exposing (calendarCalendar)
 import Config.Decoder exposing (decodeConfig)
 import Config.Model
+import Date.Model exposing (epoch)
 import Html exposing (..)
 import Html.Events exposing (..)
 import Json.Decode exposing (Value)
+import List.Extra
 import Messages exposing (Msg(..))
-import Model exposing (Model)
+import Model exposing (Model, modelCalendar)
+import Monocle.Lens
 import Resolver
 import Route.Messages exposing (RouteMsg(..))
 import Route.Model
@@ -43,12 +48,16 @@ initial flags url key =
         ( model, commands ) =
             Model.initial config nav
                 |> Route.Resolver.parseRoute url
+
+        nowMsg posix =
+            model.calendar.calendar
+                |> calendarNow.set (Date.Model.fromPosix posix)
+                |> (OnCalendar << OnCalendarChange)
     in
     ( model
     , Cmd.batch
         [ commands
-
-        --, Task.perform (\posix -> OnCalendar <| OnCalendarChange <| Monocle.Lens.compose) Time.now
+        , Task.perform nowMsg Time.now
         ]
     )
 

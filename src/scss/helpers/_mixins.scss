@@ -27,18 +27,19 @@
     }
 }
 
-@mixin grid($cols, $hSpace: 0.25, $vSpace: 0.25) {
+@mixin grid($cols, $hSpace: 0.25, $vSpace: 0.25, $justify: flex-start) {
     @include column();
 
     > * {
         @include flexbox();
+        @include justify-content($justify);
         @include not-last-child(){
-            @include padding-bottom($vSpace);
+            @include margin-bottom($vSpace);
         }
 
         > * {
             @include not-first-child(){
-                @include padding-left($hSpace);
+                @include margin-left($hSpace);
             }
             @for $i from 1 through length($cols) {
                 $el: nth($cols, $i);
@@ -47,6 +48,7 @@
                     width: $el * 1%;
                 }
             }
+            @content;
         }
     }
 }
