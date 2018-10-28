@@ -2,16 +2,20 @@ module Model exposing
     ( Model
     , initial
     , modelAside
+    , modelCalendar
     , modelConfig
     , modelFood
     , modelNav
     )
 
+import Calendar.Model
 import Component.Aside.Model
 import Config.Model exposing (Config)
+import Date.Model exposing (Date)
 import Food.Model
 import Monocle.Lens exposing (Lens)
 import Route.Model exposing (Navigation)
+import Time
 
 
 type alias Model =
@@ -19,6 +23,7 @@ type alias Model =
     , config : Config
     , food : Food.Model.Model
     , aside : Component.Aside.Model.Aside
+    , calendar : Calendar.Model.Model
     }
 
 
@@ -28,7 +33,13 @@ initial config nav =
     , config = config
     , food = Food.Model.initial
     , aside = Component.Aside.Model.initial
+    , calendar = Calendar.Model.initial Date.Model.epoch
     }
+
+
+modelCalendar : Lens Model Calendar.Model.Model
+modelCalendar =
+    Lens .calendar (\b a -> { a | calendar = b })
 
 
 modelAside : Lens Model Component.Aside.Model.Aside

@@ -1,5 +1,5 @@
 #food-list {
-    @include padding-H();
+    @include padding();
     > h1 {
         @include type-setting(larger);
     }

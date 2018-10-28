@@ -2,6 +2,7 @@ module Main exposing (main)
 
 import Browser
 import Browser.Navigation exposing (Key)
+import Calendar.Messages exposing (CalendarMsg(..))
 import Config.Decoder exposing (decodeConfig)
 import Config.Model
 import Html exposing (..)
@@ -14,6 +15,8 @@ import Route.Messages exposing (RouteMsg(..))
 import Route.Model
 import Route.Resolver
 import Route.View
+import Task
+import Time
 import Url exposing (Url)
 import View
 
@@ -44,6 +47,8 @@ initial flags url key =
     ( model
     , Cmd.batch
         [ commands
+
+        --, Task.perform (\posix -> OnCalendar <| OnCalendarChange <| Monocle.Lens.compose) Time.now
         ]
     )
 

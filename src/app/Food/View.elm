@@ -86,12 +86,6 @@ card model ({ tags, pic, protein, carbs, fats, total, name } as food) =
 page : Model -> Html Msg
 page ({ food, aside } as model) =
     main_ [ id "food-list" ]
-        [ h1 []
-            [ text "Food List"
-            , text " ("
-            , text <| Debug.toString <| List.length food.data
-            , text ")"
-            ]
-        , div [ class "food-list" ] <|
+        [ div [ class "food-list" ] <|
             List.map (card model) food.data
         ]

@@ -1,5 +1,6 @@
 module Resolver exposing (resolve)
 
+import Calendar.Resolver
 import Component.Aside.Resolver
 import Messages exposing (Msg(..))
 import Model exposing (Model)
@@ -17,3 +18,6 @@ resolve message model =
 
         OnAside msg ->
             Component.Aside.Resolver.resolve msg model
+
+        OnCalendar msg ->
+            Calendar.Resolver.resolve msg model
