@@ -3,7 +3,7 @@ module Route.Resource exposing (banana, blueberriesAsda, fageTotalZero, granolaT
 
 path : String
 path =
-    "/images/"
+    "https://raw.githubusercontent.com/grrinchas/life-tracker/master/docs/images/"
 
 
 ketchup =
