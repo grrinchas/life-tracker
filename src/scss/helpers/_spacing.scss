@@ -126,7 +126,7 @@
 }
 
 @mixin margin-V($value: 1) {
-    @include margin-TB($value)
+    @include margin-TB($value, $value);
 }
 
 @mixin margin-VH($vertical: 1, $horizontal: 1) {

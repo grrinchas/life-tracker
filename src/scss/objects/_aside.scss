@@ -1,40 +1,71 @@
 @mixin aside() {
     @include border-right();
     @include background-grey-light();
+    z-index: 2;
     position: fixed;
     width: spacing(13);
     height: 100%;
     @include tag-list($flip: true, $margin-bottom: 0.25, $hoverable: true);
-
     .tag-list {
-        @include margin(0.5)
+        @include padding-LTRB(1, 0.5, 1, 0.25);
     }
+
+
     .menu {
-        ul {
+
+        > *:last-child {
             transition: max-height 0.2s ease;
             overflow: hidden;
             max-height: 0;
+            @include margin-V(0);
+            @include padding-V(0);
         }
 
         &.active {
-            ul {
+            > *:last-child  {
                 max-height: 100vh;
+                @include border-bottom();
             }
+
         }
     }
+
+
+    .choose-date {
+        @include padding-VH(0.5, 1);
+        h2 {
+            @include type-setting(larger);
+            @include center-middle();
+        }
+        .btn {
+            @include background-primary();
+            @include foreground-white();
+            @include padding-VH(0.5, 1);
+            @include center-middle();
+            @include margin-bottom();
+            @include hoverable();
+            text-transform: uppercase;
+            font-weight: bold;
+            box-shadow: 3px 3px 10px rgba(0,0,0,0.2), 1px 1px 3px rgba(0,0,0,0.2);
+
+        }
+    }
+
 
     h3 {
         @include hoverable();
         @include padding-VH(0.5, 1);
         @include border-bottom();
-        font-weight: bold;
         @include svg-icon(14px);
         @include center-V();
         @include justify-content(space-between);
+        font-weight: bold;
     }
 
     li {
-        @include border-bottom();
+        @include not-last-child {
+            @include border-bottom();
+        }
         @include svg-icon();
         a {
             @include center-V();

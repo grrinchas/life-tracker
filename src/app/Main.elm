@@ -2,7 +2,7 @@ module Main exposing (main)
 
 import Browser
 import Browser.Navigation exposing (Key)
-import Calendar.Calendar exposing (calendarNow)
+import Calendar.Calendar exposing (calendarDisplay, calendarNow)
 import Calendar.Messages exposing (CalendarMsg(..))
 import Calendar.Model exposing (calendarCalendar)
 import Config.Decoder exposing (decodeConfig)
@@ -52,6 +52,7 @@ initial flags url key =
         nowMsg posix =
             model.calendar.calendar
                 |> calendarNow.set (Date.Model.fromPosix posix)
+                |> calendarDisplay.set (Date.Model.fromPosix posix)
                 |> (OnCalendar << OnCalendarChange)
     in
     ( model

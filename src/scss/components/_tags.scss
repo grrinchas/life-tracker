@@ -3,7 +3,6 @@
         @include flexbox();
         @include flex-wrap(wrap);
 
-
         li {
             @include black-white();
             @include type-setting(small);

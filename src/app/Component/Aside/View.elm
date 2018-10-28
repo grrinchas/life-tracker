@@ -1,5 +1,7 @@
 module Component.Aside.View exposing (view)
 
+import Calendar.Calendar exposing (calendarDisplay)
+import Calendar.Messages exposing (CalendarMsg(..))
 import Component.Aside.Messages exposing (AsideMsg(..))
 import Component.Aside.Model exposing (asideTagsFilter)
 import FontAwesome.Solid
@@ -17,7 +19,7 @@ import Tag.View
 
 
 view : Model -> Html Msg
-view ({ nav, config, aside } as model) =
+view ({ nav, config, aside, calendar } as model) =
     let
         nutritionLinks =
             [ Route.Model.nutrition
@@ -44,19 +46,21 @@ view ({ nav, config, aside } as model) =
                 ]
 
         tagsMenu =
-            section [ classList [ ( "menu", True ), ( "active", aside.tagsMenu ) ] ]
+            section [ classList [ ( "menu tags", True ), ( "active", aside.tagsMenu ) ] ]
                 [ h3 [ onClick (OnAside <| OnAsideChange { aside | tagsMenu = not aside.tagsMenu }) ]
                     [ text "Tags", getIcon aside.tagsMenu ]
-                , Tag.View.listView
-                    { tags = Tag.Model.list
-                    , action =
-                        Just
-                            (\tag ->
-                                asideTagsFilter.set (Lib.Filter.toggle aside.tagsFilter tag) aside
-                                    |> (OnAside << OnAsideChange)
-                            )
-                    , classes = \tag -> [ ( "inactive", not <| List.member tag aside.tagsFilter ) ]
-                    }
+                , div []
+                    [ Tag.View.listView
+                        { tags = Tag.Model.list
+                        , action =
+                            Just
+                                (\tag ->
+                                    asideTagsFilter.set (Lib.Filter.toggle aside.tagsFilter tag) aside
+                                        |> (OnAside << OnAsideChange)
+                                )
+                        , classes = \tag -> [ ( "inactive", not <| List.member tag aside.tagsFilter ) ]
+                        }
+                    ]
                 ]
 
         sortMenu =
@@ -77,6 +81,42 @@ view ({ nav, config, aside } as model) =
             Html.aside []
                 [ exploreMenu
                 , tagsMenu
+                ]
+
+        Calendar ->
+            Html.aside []
+                [ section [ classList [ ( "menu", True ), ( "active", aside.chooseYear ) ] ]
+                    [ h3 [ onClick (OnAside <| OnAsideChange { aside | chooseYear = not aside.chooseYear }) ]
+                        [ text "Choose Year"
+                        , getIcon aside.chooseYear
+                        ]
+                    , div [ class "choose-date" ]
+                        [ h2 [] [ text <| Debug.toString calendar.calendar.display.year ]
+                        , span
+                            [ class "btn"
+                            , calendar.calendar
+                                |> calendarDisplay.set calendar.calendar.now
+                                |> OnCalendarChange
+                                |> OnCalendar
+                                |> onClick
+                            ]
+                            [ text "Today" ]
+                        ]
+                    ]
+                , section [ classList [ ( "menu", True ), ( "active", aside.calendarDisplay ) ] ]
+                    [ h3 [ onClick (OnAside <| OnAsideChange { aside | calendarDisplay = not aside.calendarDisplay }) ]
+                        [ text "Display"
+                        , getIcon aside.calendarDisplay
+                        ]
+                    , [ "Day"
+                      , "Week"
+                      , "Month"
+                      , "Year"
+                      , "Schedule"
+                      ]
+                        |> List.map (\str -> li [] [ a [ href <| Route.Model.toPath config Route.Model.calendar ] [ text str ] ])
+                        |> ul []
+                    ]
                 ]
 
         _ ->

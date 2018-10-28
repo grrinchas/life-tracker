@@ -1,5 +1,6 @@
-module Date.Model exposing (Date, addDays, daysInMonth, daysInYear, epoch, fromPosix, isLeapYear, monthFullName, monthList, monthShortName, toMillis, toPosix, weekdayFullName, weekdayLetterName, weekdayList, weekdayShortName)
+module Date.Model exposing (Date, addDays, dateDay, dateHour, dateMillisecond, dateMinute, dateMonth, dateSecond, dateWeekday, dateYear, daysInMonth, daysInYear, epoch, fromPosix, isLeapYear, monthFullName, monthList, monthShortName, toMillis, toPosix, weekdayFullName, weekdayLetterName, weekdayList, weekdayShortName)
 
+import Monocle.Lens exposing (Lens)
 import Time exposing (Month(..), Posix, Weekday(..))
 
 
@@ -26,6 +27,46 @@ epoch =
     , millis = 0
     , weekday = Thu
     }
+
+
+dateYear : Lens Date Int
+dateYear =
+    Lens .year (\b a -> { a | year = b })
+
+
+dateMonth : Lens Date Month
+dateMonth =
+    Lens .month (\b a -> { a | month = b })
+
+
+dateDay : Lens Date Int
+dateDay =
+    Lens .day (\b a -> { a | day = b })
+
+
+dateHour : Lens Date Int
+dateHour =
+    Lens .hour (\b a -> { a | hour = b })
+
+
+dateMinute : Lens Date Int
+dateMinute =
+    Lens .minute (\b a -> { a | minute = b })
+
+
+dateSecond : Lens Date Int
+dateSecond =
+    Lens .second (\b a -> { a | second = b })
+
+
+dateMillisecond : Lens Date Int
+dateMillisecond =
+    Lens .millis (\b a -> { a | millis = b })
+
+
+dateWeekday : Lens Date Weekday
+dateWeekday =
+    Lens .weekday (\b a -> { a | weekday = b })
 
 
 weekdayList : List Weekday

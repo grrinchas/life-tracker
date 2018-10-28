@@ -1,4 +1,4 @@
-module Calendar.Calendar exposing (Calendar, calendarNow, initial, normalizedMonthly, rangeInDays, yearly)
+module Calendar.Calendar exposing (Calendar, calendarDisplay, calendarNow, initial, normalizedMonthly, rangeInDays, yearly)
 
 import Date.Model as Date exposing (Date, epoch)
 import List.Extra
@@ -8,13 +8,20 @@ import Time exposing (Weekday(..))
 
 type alias Calendar =
     { now : Date
+    , display : Date
     }
 
 
 initial : Date -> Calendar
 initial date =
     { now = date
+    , display = date
     }
+
+
+calendarDisplay : Lens Calendar Date
+calendarDisplay =
+    Lens .display (\b a -> { a | display = b })
 
 
 calendarNow : Lens Calendar Date
@@ -39,6 +46,6 @@ yearly { year } =
 normalizedMonthly : Date -> List Date
 normalizedMonthly ({ month, year } as date) =
     (Date.daysInMonth year month + 20)
-        |> rangeInDays (Date.addDays { date | day = 1 } -6)
+        |> rangeInDays (Date.addDays { date | day = 1 } -7)
         |> List.Extra.dropWhile ((/=) Mon << .weekday)
         |> List.take 42

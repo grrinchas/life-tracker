@@ -1,8 +1,30 @@
 
 #calendar {
-    @include padding-VH(1, 1);
-    @include grid($cols: replicate(100/4, 4), $justify: center, $vSpace: 1, $hSpace: 1);
     @include center-middle();
+    @include padding-H();
+
+    > span {
+        @include svg-icon(50px);
+        @include center-middle();
+        @include foreground-grey-primary();
+        @include hoverable();
+        border-radius: 50%;
+
+        &:last-child {
+            @include margin-left();
+        }
+
+        &:hover {
+            color: darken($grey-primary, 30);
+        }
+    }
+
+    > div {
+        @include padding-VH(1, 1);
+        @include grid($cols: replicate(100/4, 4), $justify: center, $vSpace: 1, $hSpace: 1);
+        @include center-middle();
+    }
+
     .month {
         font-size: 12px;
         @include border();
@@ -32,6 +54,9 @@
                 @include circle(1.25);
                 @include center-middle();
                 @include hoverable();
+                &:hover {
+                    @include background-grey-primary();
+                }
             }
         }
     }
