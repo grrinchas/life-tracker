@@ -1,4 +1,4 @@
-module Component.Aside.Model exposing (Aside, asideCalendarDisplay, asideChooseYear, asideExploreMenu, asideTagsFilter, asideTagsMenu, initial)
+module Component.Aside.Model exposing (Aside, asideCalendarDisplay, asideChooseDate, asideExploreMenu, asideTagsFilter, asideTagsMenu, initial)
 
 import Monocle.Lens exposing (Lens)
 import Tag.Model exposing (Tag)
@@ -7,7 +7,7 @@ import Tag.Model exposing (Tag)
 type alias Aside =
     { exploreMenu : Bool
     , tagsMenu : Bool
-    , chooseYear : Bool
+    , chooseDate : Bool
     , calendarDisplay : Bool
     , tagsFilter : List Tag
     }
@@ -17,7 +17,7 @@ initial : Aside
 initial =
     { exploreMenu = True
     , tagsMenu = True
-    , chooseYear = True
+    , chooseDate = True
     , calendarDisplay = True
     , tagsFilter = Tag.Model.list
     }
@@ -28,9 +28,9 @@ asideCalendarDisplay =
     Lens .calendarDisplay (\b a -> { a | calendarDisplay = b })
 
 
-asideChooseYear : Lens Aside Bool
-asideChooseYear =
-    Lens .chooseYear (\b a -> { a | chooseYear = b })
+asideChooseDate : Lens Aside Bool
+asideChooseDate =
+    Lens .chooseDate (\b a -> { a | chooseDate = b })
 
 
 asideTagsFilter : Lens Aside (List Tag)

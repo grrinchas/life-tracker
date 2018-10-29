@@ -2,8 +2,12 @@ module Component.Aside.View exposing (view)
 
 import Calendar.Calendar exposing (calendarDisplay)
 import Calendar.Messages exposing (CalendarMsg(..))
+import Calendar.Page exposing (View(..), pageCalendarView)
+import Calendar.View exposing (..)
 import Component.Aside.Messages exposing (AsideMsg(..))
 import Component.Aside.Model exposing (asideTagsFilter)
+import Date.Model
+import Date.View exposing (..)
 import FontAwesome.Solid
 import Html exposing (..)
 import Html.Attributes exposing (class, classList, href)
@@ -63,6 +67,31 @@ view ({ nav, config, aside, calendar } as model) =
                     ]
                 ]
 
+        chooseDateMenu =
+            section [ classList [ ( "menu", True ), ( "active", aside.calendarDisplay ) ] ]
+                [ h3 [ onClick (OnAside <| OnAsideChange { aside | calendarDisplay = not aside.calendarDisplay }) ]
+                    [ text "Display"
+                    , getIcon aside.calendarDisplay
+                    ]
+                , Calendar.Page.viewList
+                    |> List.map
+                        (\calView ->
+                            li []
+                                [ a
+                                    [ href <| Route.Model.toPath config Route.Model.calendar
+                                    , classList [ ( "active", calendar.page.view == calView ) ]
+                                    , calendar.page
+                                        |> pageCalendarView.set calView
+                                        |> OnPageChange
+                                        |> OnCalendar
+                                        |> onClick
+                                    ]
+                                    [ text <| Calendar.Page.viewToString calView ]
+                                ]
+                        )
+                    |> ul []
+                ]
+
         sortMenu =
             div [] []
     in
@@ -85,13 +114,29 @@ view ({ nav, config, aside, calendar } as model) =
 
         Calendar ->
             Html.aside []
-                [ section [ classList [ ( "menu", True ), ( "active", aside.chooseYear ) ] ]
-                    [ h3 [ onClick (OnAside <| OnAsideChange { aside | chooseYear = not aside.chooseYear }) ]
-                        [ text "Choose Year"
-                        , getIcon aside.chooseYear
+                [ section [ classList [ ( "menu", True ), ( "active", aside.chooseDate ) ] ]
+                    [ h3 [ onClick (OnAside <| OnAsideChange { aside | chooseDate = not aside.chooseDate }) ]
+                        [ text "Choose Date"
+                        , getIcon aside.chooseDate
                         ]
                     , div [ class "choose-date" ]
-                        [ h2 [] [ text <| Debug.toString calendar.calendar.display.year ]
+                        [ case calendar.page.view of
+                            Month ->
+                                header [ class "month-view" ]
+                                    [ h4 [] [ text <| Debug.toString calendar.calendar.display.year ]
+                                    , div [ class "chooser" ]
+                                        [ Calendar.View.previousMonth model
+                                        , h2 [] [ Date.View.monthShortName calendar.calendar.display.month ]
+                                        , Calendar.View.nextMonth model
+                                        ]
+                                    ]
+
+                            _ ->
+                                header [ class "year-view" ]
+                                    [ Calendar.View.previousYear model False
+                                    , h2 [] [ text <| Debug.toString calendar.calendar.display.year ]
+                                    , Calendar.View.nextYear model False
+                                    ]
                         , span
                             [ class "btn"
                             , calendar.calendar
@@ -103,20 +148,7 @@ view ({ nav, config, aside, calendar } as model) =
                             [ text "Today" ]
                         ]
                     ]
-                , section [ classList [ ( "menu", True ), ( "active", aside.calendarDisplay ) ] ]
-                    [ h3 [ onClick (OnAside <| OnAsideChange { aside | calendarDisplay = not aside.calendarDisplay }) ]
-                        [ text "Display"
-                        , getIcon aside.calendarDisplay
-                        ]
-                    , [ "Day"
-                      , "Week"
-                      , "Month"
-                      , "Year"
-                      , "Schedule"
-                      ]
-                        |> List.map (\str -> li [] [ a [ href <| Route.Model.toPath config Route.Model.calendar ] [ text str ] ])
-                        |> ul []
-                    ]
+                , chooseDateMenu
                 ]
 
         _ ->

@@ -1,7 +1,7 @@
 module Calendar.Resolver exposing (resolve)
 
 import Calendar.Messages exposing (CalendarMsg(..))
-import Calendar.Model exposing (calendarCalendar)
+import Calendar.Model exposing (calendarCalendar, calendarPage)
 import Lib.Extra
 import Messages exposing (Msg(..))
 import Model exposing (Model, modelAside, modelCalendar)
@@ -14,4 +14,9 @@ resolve message model =
         OnCalendarChange calendar ->
             model
                 |> (Lens.compose modelCalendar calendarCalendar).set calendar
+                |> Lib.Extra.withNoCommand
+
+        OnPageChange page ->
+            model
+                |> (Lens.compose modelCalendar calendarPage).set page
                 |> Lib.Extra.withNoCommand

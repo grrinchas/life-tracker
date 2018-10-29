@@ -1,5 +1,4 @@
 #food-list {
-    @include padding();
     > h1 {
         @include type-setting(larger);
     }
@@ -16,9 +15,8 @@
                 @include border($white);
             }
 
-            @include border();
             @include not-last-child() {
-                @include margin-bottom(0.5);
+                @include border-bottom();
             }
             @include flexbox();
             background-color: $grey-light;

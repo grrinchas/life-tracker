@@ -1,6 +1,7 @@
 
 
 // colours
+$grey-dark: rgba(170, 170, 170, 1);
 $grey-primary: rgba(230, 230, 230, 1);
 $grey-light: rgba(250, 250, 250, 1);
 $white: white;
@@ -27,7 +28,7 @@ $height-scale: (
     default: 1,
     big: 1,
     large: 1.5,
-    larger: 1.5,
+    larger: 1,
     huge: 2,
 );
 

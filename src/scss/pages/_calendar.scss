@@ -1,7 +1,6 @@
 
 #calendar {
     @include center-middle();
-    @include padding-H();
 
     > span {
         @include svg-icon(50px);
@@ -10,12 +9,9 @@
         @include hoverable();
         border-radius: 50%;
 
-        &:last-child {
-            @include margin-left();
-        }
 
         &:hover {
-            color: darken($grey-primary, 30);
+            color: $grey-dark;
         }
     }
 
@@ -25,37 +21,87 @@
         @include center-middle();
     }
 
-    .month {
-        font-size: 12px;
-        @include border();
-        @include background-grey-light();
-
-        h1 {
-            @include type-setting(big);
-            @include padding-V(0.25);
-            @include border-bottom();
-            background-color: $grey-primary;
-            text-align: center;
-        }
-
+    &.month-view {
         .body {
-            @include padding(0.5);
+            padding: 0;
+            @include fit-size();
+
             .today {
-                @include background-primary();
-                @include foreground-white();
+                background-color: lighten($primary, 50);
             }
             .outlier {
-                opacity: 0.4;
+                color: $grey-dark;
             }
-            .weekdays {
-                font-weight: bold;
-            }
-            @include grid($cols: replicate(100/7, 7), $vSpace: 0, $hSpace: 0.5) {
-                @include circle(1.25);
-                @include center-middle();
+            @include grid($cols: replicate(100/7, 7), $vSpace: 0, $hSpace: 0) {
                 @include hoverable();
-                &:hover {
-                    @include background-grey-primary();
+                @include padding(0.5);
+                @include not-last-child () {
+                    @include border-right();
+                }
+
+                    &:hover {
+                        @include background-grey-primary();
+                    }
+            }
+
+            ul {
+                width: 100%;
+                @include flexbox();
+                @include not-last-child() {
+                    @include border-bottom();
+                }
+
+                @include not-first-child() {
+                    @include flex-grow(1);
+                    @include flex-shrink(0);
+                }
+
+                &:first-child {
+                    padding: 0;
+                    font-weight: bold;
+                    text-align: center;
+                    @include background-grey-light();
+                }
+            }
+        }
+
+    }
+
+    &.year-view {
+        @include padding-H();
+        .month {
+            font-size: 12px;
+            @include border();
+            @include background-grey-light();
+
+            h1 {
+                @include type-setting(big);
+                @include padding-V(0.25);
+                @include border-bottom();
+                @include hoverable();
+                background-color: $grey-primary;
+                text-align: center;
+            }
+
+            .body {
+                @include padding(0.5);
+                .today {
+                    @include background-primary();
+                    @include foreground-white();
+                }
+                .outlier {
+                    color: $grey-dark;
+                }
+                .weekdays {
+                    font-weight: bold;
+                }
+                @include grid($cols: replicate(100/7, 7), $vSpace: 0, $hSpace: 0.5) {
+                    @include circle(1.25);
+                    @include center-middle();
+                    @include hoverable();
+                    &:hover {
+                        @include background-grey-primary();
+                    }
                 }
             }
         }

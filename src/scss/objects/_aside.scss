@@ -10,7 +10,6 @@
         @include padding-LTRB(1, 0.5, 1, 0.25);
     }
 
-
     .menu {
 
         > *:last-child {
@@ -22,7 +21,7 @@
         }
 
         &.active {
-            > *:last-child  {
+            > *:last-child {
                 max-height: 100vh;
                 @include border-bottom();
             }
@@ -30,27 +29,55 @@
         }
     }
 
-
     .choose-date {
-        @include padding-VH(0.5, 1);
-        h2 {
-            @include type-setting(larger);
-            @include center-middle();
+        header {
+            @include svg-icon(25px);
+            svg {
+                color: $grey-dark;
+            }
+
+            h2 {
+                @include type-setting(larger);
+                @include margin-H(0.5);
+            }
+
+            h4 {
+                @include padding-top();
+                @include type-setting(big);
+                font-weight: bold;
+                text-align: center;
+            }
+
+            span {
+                @include hoverable();
+                @include center-middle();
+                &:last-child {
+                    @include margin-left(0.75);
+                }
+            }
+
+            &.year-view {
+                @include center-middle();
+            }
+            &.month-view {
+                @include column();
+                > div {
+                    @include center-middle();
+                }
+            }
+
         }
         .btn {
             @include background-primary();
             @include foreground-white();
             @include padding-VH(0.5, 1);
             @include center-middle();
-            @include margin-bottom();
             @include hoverable();
             text-transform: uppercase;
             font-weight: bold;
-            box-shadow: 3px 3px 10px rgba(0,0,0,0.2), 1px 1px 3px rgba(0,0,0,0.2);
 
         }
     }
-
 
     h3 {
         @include hoverable();
