@@ -1,4 +1,4 @@
-module Date.Model exposing (Date, addDays, dateDay, dateHour, dateMillisecond, dateMinute, dateMonth, dateSecond, dateWeekday, dateYear, daysInMonth, daysInYear, epoch, fromPosix, isLeapYear, monthFullName, monthList, monthShortName, toMillis, toPosix, weekdayFullName, weekdayLetterName, weekdayList, weekdayShortName)
+module Date.Model exposing (Date, addDays, addYears, daysInMonth, daysInYear, epoch, fromPosix, isLeapYear, monthFullName, monthList, monthShortName, nextMonth, prevMonth, toMillis, toPosix, weekdayFullName, weekdayLetterName, weekdayList, weekdayShortName)
 
 import Monocle.Lens exposing (Lens)
 import Time exposing (Month(..), Posix, Weekday(..))
@@ -27,46 +27,6 @@ epoch =
     , millis = 0
     , weekday = Thu
     }
-
-
-dateYear : Lens Date Int
-dateYear =
-    Lens .year (\b a -> { a | year = b })
-
-
-dateMonth : Lens Date Month
-dateMonth =
-    Lens .month (\b a -> { a | month = b })
-
-
-dateDay : Lens Date Int
-dateDay =
-    Lens .day (\b a -> { a | day = b })
-
-
-dateHour : Lens Date Int
-dateHour =
-    Lens .hour (\b a -> { a | hour = b })
-
-
-dateMinute : Lens Date Int
-dateMinute =
-    Lens .minute (\b a -> { a | minute = b })
-
-
-dateSecond : Lens Date Int
-dateSecond =
-    Lens .second (\b a -> { a | second = b })
-
-
-dateMillisecond : Lens Date Int
-dateMillisecond =
-    Lens .millis (\b a -> { a | millis = b })
-
-
-dateWeekday : Lens Date Weekday
-dateWeekday =
-    Lens .weekday (\b a -> { a | weekday = b })
 
 
 weekdayList : List Weekday
@@ -252,6 +212,49 @@ monthToInt month =
             12
 
 
+monthFromInt : Int -> Maybe Month
+monthFromInt month =
+    case month of
+        1 ->
+            Just Jan
+
+        2 ->
+            Just Feb
+
+        3 ->
+            Just Mar
+
+        4 ->
+            Just Apr
+
+        5 ->
+            Just May
+
+        6 ->
+            Just Jun
+
+        7 ->
+            Just Jul
+
+        8 ->
+            Just Aug
+
+        9 ->
+            Just Sep
+
+        10 ->
+            Just Oct
+
+        11 ->
+            Just Nov
+
+        12 ->
+            Just Dec
+
+        _ ->
+            Nothing
+
+
 weekdayFullName : Weekday -> String
 weekdayFullName week =
     case week of
@@ -329,11 +332,129 @@ monthsBefore month =
             [ Jan, Feb, Mar, Apr, May, Jul, Jun, Aug, Sep, Oct, Nov ]
 
 
+capDay : Date -> Date
+capDay ({ year, month, day } as date) =
+    case compare day (daysInMonth year month) of
+        GT ->
+            { date | day = daysInMonth year month }
+
+        _ ->
+            date
+
+
 addDays : Date -> Int -> Date
-addDays date days =
+addDays date new =
     toMillis date
-        |> (+) (days * 86400000)
+        |> (+) (new * 86400000)
         |> fromMillis
+
+
+addYears : Int -> Date -> Date
+addYears new ({ year } as date) =
+    { date | year = year + new }
+        |> capDay
+
+
+nextMonth : Date -> Date
+nextMonth ({ month, year } as date) =
+    let
+        next =
+            case month of
+                Jan ->
+                    Feb
+
+                Feb ->
+                    Mar
+
+                Mar ->
+                    Apr
+
+                Apr ->
+                    May
+
+                May ->
+                    Jun
+
+                Jun ->
+                    Jul
+
+                Jul ->
+                    Aug
+
+                Aug ->
+                    Sep
+
+                Sep ->
+                    Oct
+
+                Oct ->
+                    Nov
+
+                Nov ->
+                    Dec
+
+                Dec ->
+                    Jan
+    in
+    case month == Dec of
+        True ->
+            { date | year = year + 1, month = Jan }
+                |> capDay
+
+        False ->
+            { date | month = next }
+                |> capDay
+
+
+prevMonth : Date -> Date
+prevMonth ({ month, year } as date) =
+    let
+        next =
+            case month of
+                Jan ->
+                    Dec
+
+                Feb ->
+                    Jan
+
+                Mar ->
+                    Feb
+
+                Apr ->
+                    Mar
+
+                May ->
+                    Apr
+
+                Jun ->
+                    May
+
+                Jul ->
+                    Jun
+
+                Aug ->
+                    Jul
+
+                Sep ->
+                    Aug
+
+                Oct ->
+                    Sep
+
+                Nov ->
+                    Oct
+
+                Dec ->
+                    Nov
+    in
+    case month == Jan of
+        True ->
+            { date | year = year - 1, month = Dec }
+                |> capDay
+
+        False ->
+            { date | month = next }
+                |> capDay
 
 
 fromPosix : Posix -> Date

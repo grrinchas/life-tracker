@@ -1,8 +1,9 @@
-module Calendar.View exposing (yearView)
+module Calendar.View exposing (nextMonth, nextYear, previousMonth, previousYear, view)
 
 import Calendar.Calendar as Calendar exposing (calendarDisplay)
 import Calendar.Messages exposing (CalendarMsg(..))
-import Date.Model exposing (Date, dateYear)
+import Calendar.Page exposing (View(..), pageCalendarView)
+import Date.Model exposing (Date)
 import Date.View
 import FontAwesome.Solid
 import Html exposing (..)
@@ -14,54 +15,154 @@ import Model exposing (Model)
 import Monocle.Lens
 
 
-yearView : Model -> Html Msg
-yearView { calendar } =
+view : Model -> Html Msg
+view ({ calendar } as model) =
+    case calendar.page.view of
+        Year ->
+            yearView model
+
+        Month ->
+            monthView model
+
+        Week ->
+            div [] []
+
+        Day ->
+            div [] []
+
+        Schedule ->
+            div [] []
+
+
+monthView : Model -> Html Msg
+monthView ({ calendar } as model) =
+    main_ [ id "calendar", class "month-view" ] <|
+        [ monthSmallView model calendar.calendar.display
+        ]
+
+
+monthSmallView : Model -> Date -> Html Msg
+monthSmallView { calendar } displayDate =
     let
-        dayView currMonth { day, month, year } =
+        dayView { day, month, year } =
             li
                 [ classList
-                    [ ( "outlier", currMonth /= month )
-                    , ( "today", day == calendar.calendar.now.day && calendar.calendar.now.month == month && calendar.calendar.now.year == year )
+                    [ ( "outlier", displayDate.month /= month )
+                    , ( "today"
+                      , List.Extra.notMember False
+                            [ day == calendar.calendar.now.day
+                            , calendar.calendar.now.month == displayDate.month
+                            , calendar.calendar.now.year == year
+                            ]
+                      )
                     ]
                 ]
                 [ span [] [ text <| Debug.toString day ]
                 ]
 
-        monthView ({ month } as date) =
-            section [ class "month" ]
-                [ h1 [] [ Date.View.monthFullName month ]
-                , div [ class "body" ] <|
-                    List.concat
-                        [ [ ul [ class "weekdays" ] <|
-                                List.map (\day -> li [] [ span [] [ Date.View.weekdayLetterName day ] ]) Date.Model.weekdayList
-                          ]
-                        , Calendar.normalizedMonthly date
-                            |> List.Extra.greedyGroupsOf 7
-                            |> List.map (ul [] << List.map (dayView month))
-                        ]
-                ]
+        getWeekdayName day =
+            case calendar.page.view of
+                Year ->
+                    li [] [ span [] [ Date.View.weekdayLetterName day ] ]
+
+                _ ->
+                    li [] [ span [] [ Date.View.weekdayFullName day ] ]
     in
-    main_ [ id "calendar" ]
-        [ span
-            [ calendar.calendar
-                |> (Monocle.Lens.compose calendarDisplay dateYear).set (calendar.calendar.display.year - 1)
-                |> OnCalendarChange
-                |> OnCalendar
-                |> onClick
+    div [ class "body" ] <|
+        List.concat
+            [ [ ul [ class "weekdays" ] <|
+                    List.map getWeekdayName Date.Model.weekdayList
+              ]
+            , Calendar.normalizedMonthly displayDate
+                |> List.Extra.greedyGroupsOf 7
+                |> List.map (ul [] << List.map dayView)
             ]
-            [ FontAwesome.Solid.chevron_left ]
+
+
+previousYear : Model -> Bool -> Html Msg
+previousYear ({ calendar } as model) bool =
+    span
+        [ calendar.calendar
+            |> calendarDisplay.set (Date.Model.addYears -1 calendar.calendar.display)
+            |> OnCalendarChange
+            |> OnCalendar
+            |> onClick
+        ]
+        [ case bool of
+            True ->
+                FontAwesome.Solid.chevron_circle_left
+
+            False ->
+                FontAwesome.Solid.chevron_left
+        ]
+
+
+nextYear : Model -> Bool -> Html Msg
+nextYear ({ calendar } as model) bool =
+    span
+        [ calendar.calendar
+            |> calendarDisplay.set (Date.Model.addYears 1 calendar.calendar.display)
+            |> OnCalendarChange
+            |> OnCalendar
+            |> onClick
+        ]
+        [ case bool of
+            True ->
+                FontAwesome.Solid.chevron_circle_right
+
+            False ->
+                FontAwesome.Solid.chevron_right
+        ]
+
+
+nextMonth : Model -> Html Msg
+nextMonth ({ calendar } as model) =
+    span
+        [ calendar.calendar
+            |> calendarDisplay.set (Date.Model.nextMonth calendar.calendar.display)
+            |> OnCalendarChange
+            |> OnCalendar
+            |> onClick
+        ]
+        [ FontAwesome.Solid.chevron_right
+        ]
+
+
+previousMonth : Model -> Html Msg
+previousMonth ({ calendar } as model) =
+    span
+        [ calendar.calendar
+            |> calendarDisplay.set (Date.Model.prevMonth calendar.calendar.display)
+            |> OnCalendarChange
+            |> OnCalendar
+            |> onClick
+        ]
+        [ FontAwesome.Solid.chevron_left
+        ]
+
+
+yearView : Model -> Html Msg
+yearView ({ calendar } as model) =
+    main_ [ id "calendar", class "year-view" ]
+        [ previousYear model True
         , div [] <|
             List.map (div []) <|
                 List.Extra.greedyGroupsOf 4 <|
-                    List.map monthView <|
+                    List.map
+                        (\date ->
+                            section [ class "month" ]
+                                [ h1
+                                    [ calendar.page
+                                        |> pageCalendarView.set Month
+                                        |> OnPageChange
+                                        |> OnCalendar
+                                        |> onClick
+                                    ]
+                                    [ Date.View.monthFullName date.month ]
+                                , monthSmallView model date
+                                ]
+                        )
+                    <|
                         Calendar.yearly calendar.calendar.display
-        , span
-            [ calendar.calendar
-                |> (Monocle.Lens.compose calendarDisplay dateYear).set (calendar.calendar.display.year + 1)
-                |> OnCalendarChange
-                |> OnCalendar
-                |> onClick
-            ]
-            [ FontAwesome.Solid.chevron_right
-            ]
+        , nextYear model True
         ]

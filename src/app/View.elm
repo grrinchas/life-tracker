@@ -38,7 +38,7 @@ view ({ nav } as model) =
         Calendar ->
             { title = "Calendar"
             , body =
-                Calendar.View.yearView model
+                Calendar.View.view model
                     |> Component.Layout.View.simple model
             }
 
