@@ -10,6 +10,7 @@ import Html exposing (..)
 import Html.Attributes exposing (..)
 import Html.Events exposing (onClick)
 import List.Extra
+import Maybe.Extra
 import Messages exposing (Msg(..))
 import Model exposing (Model)
 import Monocle.Lens
@@ -25,13 +26,61 @@ view ({ calendar } as model) =
             monthView model
 
         Week ->
-            div [] []
+            weekView model
 
         Day ->
             div [] []
 
         Schedule ->
             div [] []
+
+
+weekView : Model -> Html Msg
+weekView ({ calendar } as model) =
+    let
+        headerView { day, month, year, weekday } =
+            ul
+                [ classList
+                    [ ( "today"
+                      , List.Extra.notMember False
+                            [ day == calendar.calendar.now.day
+                            , calendar.calendar.now.month == calendar.calendar.display.month
+                            , calendar.calendar.now.year == year
+                            ]
+                      )
+                    ]
+                ]
+            <|
+                List.concat
+                    [ [ li [ classList [ ( "outlier", calendar.calendar.display.month /= month ) ] ]
+                            [ span [ class "weekday" ] [ Date.View.weekdayShortName weekday ]
+                            , span [] [ text <| Debug.toString day ]
+                            ]
+                      ]
+                    , List.range 1 24
+                        |> List.map (\_ -> li [] [ text "" ])
+                    ]
+
+        hourView hour =
+            li [] [ Date.View.militaryHour hour ]
+    in
+    main_ [ id "calendar", class "week-view" ] <|
+        [ div [ class "body" ] <|
+            List.concat
+                [ [ ul [ class "hour" ] <|
+                        List.concat
+                            [ [ li [] [ text "H" ] ]
+                            , List.range 1 24
+                                |> List.map hourView
+                            ]
+                  ]
+                , Calendar.normalizedMonthly calendar.calendar.display
+                    |> List.Extra.greedyGroupsOf 7
+                    |> List.Extra.find (List.member calendar.calendar.now.day << List.map .day)
+                    |> Maybe.withDefault []
+                    |> List.map headerView
+                ]
+        ]
 
 
 monthView : Model -> Html Msg
@@ -120,8 +169,7 @@ nextMonth ({ calendar } as model) =
     span
         [ calendar.calendar
             |> calendarDisplay.set (Date.Model.nextMonth calendar.calendar.display)
-            |> OnCalendarChange
-            |> OnCalendar
+            |> (OnCalendar << OnCalendarChange)
             |> onClick
         ]
         [ FontAwesome.Solid.chevron_right
