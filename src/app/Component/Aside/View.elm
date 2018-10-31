@@ -131,6 +131,16 @@ view ({ nav, config, aside, calendar } as model) =
                                         ]
                                     ]
 
+                            Week ->
+                                header [ class "month-view" ]
+                                    [ h4 [] [ text <| Debug.toString calendar.calendar.display.year ]
+                                    , div [ class "chooser" ]
+                                        [ Calendar.View.previousMonth model
+                                        , h2 [] [ Date.View.monthShortName calendar.calendar.display.month ]
+                                        , Calendar.View.nextMonth model
+                                        ]
+                                    ]
+
                             _ ->
                                 header [ class "year-view" ]
                                     [ Calendar.View.previousYear model False
