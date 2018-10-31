@@ -2,13 +2,18 @@
 #calendar {
     @include center-middle();
 
+    .outlier {
+        color: $grey-dark;
+    }
+    .today {
+        background-color: lighten($primary, 50);
+    }
     > span {
         @include svg-icon(50px);
         @include center-middle();
         @include foreground-grey-primary();
         @include hoverable();
         border-radius: 50%;
-
 
         &:hover {
             color: $grey-dark;
@@ -26,9 +31,7 @@
             padding: 0;
             @include fit-size();
 
-            .today {
-                background-color: lighten($primary, 50);
-            }
+
             .outlier {
                 color: $grey-dark;
             }
@@ -39,9 +42,9 @@
                     @include border-right();
                 }
 
-                    &:hover {
-                        @include background-grey-primary();
-                    }
+                &:hover {
+                    @include background-grey-primary();
+                }
             }
 
             ul {
@@ -67,6 +70,80 @@
 
     }
 
+    &.week-view {
+        .body {
+            @include fit-size();
+            @include flex-direction(row);
+            padding: 0;
+
+            ul {
+
+                @include column();
+                @include flex-grow(1);
+                @include flex-shrink(0);
+                height: 100%;
+                margin: 0;
+                @include not-last-child() {
+                    @include border-right();
+                }
+
+
+
+                li {
+                    margin: 0;
+                    width: 100%;
+                    @include padding-H(0.5);
+                    &:first-child {
+                        @include type-setting(large);
+                        @include background-grey-light();
+                        @include column();
+                        position: relative;
+                        .weekday {
+                            position: absolute;
+                            right: 0;
+                            @include padding(0.5);
+                            @include type-setting(default);
+                        }
+                    }
+                    @include not-first-child() {
+                        @include flex-grow(1);
+                        @include flex-shrink(0);
+                    }
+                    @include not-last-child() {
+                        @include border-bottom();
+                    }
+                }
+
+                &.today {
+                    li {
+                        &:first-child {
+                            @include foreground-primary();
+                        }
+                        @include not-last-child() {
+                            @include border-bottom(lighten($primary, 45));
+                            background-color: lighten($primary, 50);
+                        }
+                    }
+                }
+
+
+                &.hour {
+                    max-width: spacing(2) !important;
+                    li {
+                        @include background-grey-light();
+                        @include center-middle();
+                        @include not-first-child() {
+                            @include type-setting(small);
+
+                        }
+
+                    }
+                }
+            }
+
+        }
+    }
+
     &.year-view {
         @include padding-H();
         .month {
@@ -89,9 +166,7 @@
                     @include background-primary();
                     @include foreground-white();
                 }
-                .outlier {
-                    color: $grey-dark;
-                }
+
                 .weekdays {
                     font-weight: bold;
                 }
