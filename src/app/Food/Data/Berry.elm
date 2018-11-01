@@ -1,9 +1,9 @@
 module Food.Data.Berry exposing (blueberriesAsda)
 
 import Food.Food exposing (Food)
+import Food.Tag exposing (Tag(..))
 import Nutrient.Model as Nut
 import Route.Resource
-import Tag.Model exposing (Tag(..))
 import Unit.Model as Unit
 
 

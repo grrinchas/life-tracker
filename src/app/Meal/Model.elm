@@ -1,4 +1,4 @@
-module Meal.Model exposing (Meal(..), ingredient, proteinMilkshake, simple, totalCalories)
+module Meal.Model exposing (Meal(..), foodIngredient, foodList, mealIngredient, mealList, singleFood, totalCalories)
 
 import Food.Data.Diary exposing (skimmedMilk)
 import Food.Data.Supplement exposing (wheyProtein)
@@ -6,44 +6,70 @@ import Food.Food exposing (Food)
 import Unit.Model exposing (Unit, grams)
 
 
-type alias Ingredient =
-    { food : Food
+type alias Ingredient a =
+    { ingredient : a
     , amount : Unit
     }
 
 
 type Meal
-    = Simple (List Ingredient)
+    = FoodList (List (Ingredient Food))
+    | MealList (List (Ingredient Meal))
+    | SingleFood Food Unit
 
 
-ingredient : Food -> Unit -> Ingredient
-ingredient =
+mealList : List (Ingredient Meal) -> Meal
+mealList =
+    MealList
+
+
+foodList : List (Ingredient Food) -> Meal
+foodList =
+    FoodList
+
+
+singleFood : Food -> Unit -> Meal
+singleFood =
+    SingleFood
+
+
+mealIngredient : Meal -> Unit -> Ingredient Meal
+mealIngredient =
     Ingredient
 
 
-simple : List Ingredient -> Meal
-simple =
-    Simple
+foodIngredient : Food -> Unit -> Ingredient Food
+foodIngredient =
+    Ingredient
 
 
 totalCalories : Meal -> Int
-totalCalories meal =
+totalCalories mainMeal =
     let
-        calPerFood { food, amount } =
-            Unit.Model.div amount food.total
-                |> (*) (Food.Food.totalCalories food |> Basics.toFloat)
+        calPerFood { ingredient, amount } =
+            Unit.Model.div amount ingredient.total
+                |> (*) (Food.Food.totalCalories ingredient |> Basics.toFloat)
                 |> round
+
+        calPerMeal { ingredient, amount } =
+            0
+
+        {-
+           Unit.Model.div amount food.total
+               |> (*) (Food.Food.totalCalories food |> Basics.toFloat)
+               |> round
+        -}
     in
-    case meal of
-        Simple list ->
+    case mainMeal of
+        FoodList list ->
             list
                 |> List.map calPerFood
                 |> List.sum
 
+        SingleFood food amount ->
+            calPerFood { ingredient = food, amount = amount }
 
-proteinMilkshake : Meal
-proteinMilkshake =
-    simple
-        [ ingredient wheyProtein (grams 30)
-        , ingredient skimmedMilk (grams 400)
-        ]
+        MealList list ->
+            list
+                |> List.map calPerMeal
+                |> List.sum

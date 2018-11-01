@@ -1,6 +1,7 @@
 module Model exposing
     ( Model
     , initial
+    , modelActivities
     , modelAside
     , modelCalendar
     , modelConfig
@@ -8,6 +9,8 @@ module Model exposing
     , modelNav
     )
 
+import Activity.Model exposing (Activity)
+import Activity.Record
 import Calendar.Model
 import Component.Aside.Model
 import Config.Model exposing (Config)
@@ -24,6 +27,7 @@ type alias Model =
     , food : Food.Model.Model
     , aside : Component.Aside.Model.Aside
     , calendar : Calendar.Model.Model
+    , activities : List Activity
     }
 
 
@@ -34,7 +38,13 @@ initial config nav =
     , food = Food.Model.initial
     , aside = Component.Aside.Model.initial
     , calendar = Calendar.Model.initial Date.Model.epoch
+    , activities = Activity.Record.all
     }
+
+
+modelActivities : Lens Model (List Activity)
+modelActivities =
+    Lens .activities (\b a -> { a | activities = b })
 
 
 modelCalendar : Lens Model Calendar.Model.Model

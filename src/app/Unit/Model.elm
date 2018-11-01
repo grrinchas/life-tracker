@@ -10,6 +10,7 @@ module Unit.Model exposing
     , milligrams
     , milliliters
     , mult
+    , scalar
     , subGrams
     , toFloat
     , toGrams

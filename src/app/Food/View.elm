@@ -1,17 +1,41 @@
-module Food.View exposing (page)
+module Food.View exposing (page, tagList)
 
 import Food.Food exposing (Food)
+import Food.Tag exposing (Tag)
 import Html exposing (..)
 import Html.Attributes exposing (..)
+import Html.Events exposing (onClick)
 import Lib.Filter
 import List.Extra
 import Messages exposing (Msg)
 import Model exposing (Model)
 import Nutrient.Model
 import Nutrient.View
-import Tag.View
 import Unit.Model
 import Unit.View
+
+
+type alias TagsView msg =
+    { tags : List Tag
+    , action : Maybe (Tag -> msg)
+    , classes : Tag -> List ( String, Bool )
+    }
+
+
+tagList : TagsView msg -> Html msg
+tagList { tags, action, classes } =
+    let
+        tagView tag =
+            li
+                [ Maybe.map (\a -> onClick <| a tag) action |> Maybe.withDefault (class "")
+                , classList <| classes tag
+                ]
+                [ text <| Food.Tag.toString tag
+                , span [] []
+                ]
+    in
+    ul [ class "tag-list" ] <|
+        List.map tagView tags
 
 
 card : Model -> Food -> Html Msg
@@ -73,7 +97,7 @@ card model ({ tags, pic, protein, carbs, fats, total, name } as food) =
             , ul [] <|
                 List.map calPerNutView (Food.Food.calPerNut food)
             , footer []
-                [ Tag.View.listView
+                [ tagList
                     { tags = tags
                     , action = Nothing
                     , classes = \_ -> []

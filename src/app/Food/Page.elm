@@ -3,8 +3,8 @@ module Food.Page exposing
     , initial
     )
 
+import Food.Tag exposing (Tag)
 import Monocle.Lens exposing (Lens)
-import Tag.Model exposing (Tag)
 
 
 type alias Page =

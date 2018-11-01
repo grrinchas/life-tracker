@@ -1,4 +1,4 @@
-module Tag.Model exposing (Tag(..), list, toString)
+module Food.Tag exposing (Tag(..), list, toString)
 
 
 type Tag

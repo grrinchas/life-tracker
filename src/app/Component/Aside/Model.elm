@@ -1,7 +1,7 @@
 module Component.Aside.Model exposing (Aside, asideCalendarDisplay, asideChooseDate, asideExploreMenu, asideTagsFilter, asideTagsMenu, initial)
 
+import Food.Tag exposing (Tag)
 import Monocle.Lens exposing (Lens)
-import Tag.Model exposing (Tag)
 
 
 type alias Aside =
@@ -19,7 +19,7 @@ initial =
     , tagsMenu = True
     , chooseDate = True
     , calendarDisplay = True
-    , tagsFilter = Tag.Model.list
+    , tagsFilter = Food.Tag.list
     }
 
 
