@@ -20,7 +20,7 @@ defaultInfo =
 
 type Activity
     = Eating Info Meal
-    | Exercising Info
+    | Exercising Info String
 
 
 start : Activity -> Date
@@ -29,7 +29,7 @@ start act =
         Eating info _ ->
             info.start
 
-        Exercising info ->
+        Exercising info _ ->
             info.start
 
 
@@ -39,7 +39,7 @@ end act =
         Eating info _ ->
             info.end
 
-        Exercising info ->
+        Exercising info _ ->
             info.end
 
 
@@ -49,7 +49,7 @@ toString act =
         Eating _ _ ->
             "Eating"
 
-        Exercising _ ->
+        Exercising _ _ ->
             "Exercising"
 
 
@@ -58,7 +58,7 @@ eating =
     Eating
 
 
-exercising : Info -> Activity
+exercising : Info -> String -> Activity
 exercising =
     Exercising
 

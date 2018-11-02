@@ -36,18 +36,20 @@
                 color: $grey-dark;
             }
             @include grid($cols: replicate(100/7, 7), $vSpace: 0, $hSpace: 0) {
-                @include hoverable();
-                @include padding(0.5);
+                @include padding(0.25);
                 @include not-last-child () {
                     @include border-right();
+                    overflow-y: auto;
+                    &::-webkit-scrollbar {
+                        display: none;
+                    }
                 }
-
-                &:hover {
-                    @include background-grey-primary();
+                &.today {
+                    color: $primary;
                 }
             }
 
-            ul {
+            > ul {
                 width: 100%;
                 @include flexbox();
                 @include not-last-child() {
@@ -57,6 +59,7 @@
                 @include not-first-child() {
                     @include flex-grow(1);
                     @include flex-shrink(0);
+                    @include flex-basis(0);
                 }
 
                 &:first-child {
@@ -64,6 +67,30 @@
                     font-weight: bold;
                     text-align: center;
                     @include background-grey-light();
+                    @include padding-V(0.25);
+                }
+
+                .activities {
+                    @include margin-top(0.25);
+                    li {
+                       @include hoverable();
+                        @include foreground-white();
+                        @include padding-VH(0.1, 0.5);
+                        @include not-last-child() {
+                            @include margin-bottom(0.25);
+                        }
+                        .title {
+                            font-weight: bold;
+                        }
+                    }
+
+                    .eating {
+                        background-color: $green;
+                    }
+
+                    .exercising {
+                        background-color: $blue;
+                    }
                 }
             }
         }

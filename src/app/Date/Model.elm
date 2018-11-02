@@ -1,4 +1,4 @@
-module Date.Model exposing (Date, addDays, addYears, daysInMonth, daysInYear, epoch, fromPosix, isLeapYear, monthFullName, monthList, monthShortName, nextMonth, prevMonth, toMillis, toPosix, weekdayFullName, weekdayLetterName, weekdayList, weekdayShortName)
+module Date.Model exposing (Date, addDays, addYears, dayEqual, daysInMonth, daysInYear, epoch, fromPosix, hourEqual, isLeapYear, minuteEqual, monthEqual, monthFullName, monthList, monthShortName, nextMonth, prevMonth, secondEqual, toMillis, toPosix, weekdayFullName, weekdayLetterName, weekdayList, weekdayShortName, yearEqual)
 
 import Monocle.Lens exposing (Lens)
 import Time exposing (Month(..), Posix, Weekday(..))
@@ -480,6 +480,36 @@ toPosix : Date -> Posix
 toPosix date =
     toMillis date
         |> Time.millisToPosix
+
+
+yearEqual : Date -> Date -> Bool
+yearEqual d1 d2 =
+    d1.year == d2.year
+
+
+monthEqual : Date -> Date -> Bool
+monthEqual d1 d2 =
+    yearEqual d1 d2 && d1.month == d2.month
+
+
+dayEqual : Date -> Date -> Bool
+dayEqual d1 d2 =
+    monthEqual d1 d2 && d1.day == d2.day
+
+
+hourEqual : Date -> Date -> Bool
+hourEqual d1 d2 =
+    dayEqual d1 d2 && d1.hour == d2.hour
+
+
+minuteEqual : Date -> Date -> Bool
+minuteEqual d1 d2 =
+    hourEqual d1 d2 && d1.minute == d2.minute
+
+
+secondEqual : Date -> Date -> Bool
+secondEqual d1 d2 =
+    minuteEqual d1 d2 && d1.second == d2.second
 
 
 toMillis : Date -> Int

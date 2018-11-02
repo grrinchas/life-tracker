@@ -3,7 +3,7 @@ module Calendar.Calendar exposing (Calendar, calendarDisplay, calendarNow, initi
 import Date.Model as Date exposing (Date, epoch)
 import List.Extra
 import Monocle.Lens exposing (Lens)
-import Time exposing (Weekday(..))
+import Time exposing (Month(..), Weekday(..))
 
 
 type alias Calendar =
@@ -15,7 +15,7 @@ type alias Calendar =
 initial : Date -> Calendar
 initial date =
     { now = date
-    , display = date
+    , display = { epoch | year = 2018, month = Oct } --date
     }
 
 

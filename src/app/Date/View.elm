@@ -1,8 +1,17 @@
-module Date.View exposing (militaryHour, monthFullName, monthShortName, weekdayFullName, weekdayLetterName, weekdayShortName)
+module Date.View exposing (militaryHour, militaryTime, monthFullName, monthShortName, weekdayFullName, weekdayLetterName, weekdayShortName)
 
-import Date.Model
+import Date.Model exposing (Date)
 import Html exposing (..)
 import Time exposing (Month, Weekday)
+
+
+militaryTime : Date -> Html msg
+militaryTime { hour, minute } =
+    span []
+        [ militaryHour hour
+        , text ":"
+        , militaryHour minute
+        ]
 
 
 militaryHour : Int -> Html msg
