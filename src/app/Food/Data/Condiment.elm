@@ -1,4 +1,4 @@
-module Food.Data.Condiment exposing (ketchup)
+module Food.Data.Condiment exposing (ketchup, oilSunflowerSpray)
 
 import Food.Food exposing (Food)
 import Food.Tag exposing (Tag(..))
@@ -28,4 +28,23 @@ ketchup =
             , total = Unit.grams 0.5
             }
     , total = Unit.hectograms 1
+    }
+
+
+oilSunflowerSpray : Food
+oilSunflowerSpray =
+    { tags = [ Condiment ]
+    , name = "ASDA Sunflower Oil Spray"
+    , pic = Route.Resource.oilSunflowerSpray
+    , protein =
+        Nut.protein <| Unit.grams 0
+    , carbs = Nut.zeroCarbs
+    , fats =
+        Nut.fats
+            { sat = Unit.grams 0.5
+            , mono = Unit.grams 1.25
+            , poly = Unit.grams 2.65
+            , total = Unit.grams 4.6
+            }
+    , total = Unit.custom "25 Sprays" 5
     }

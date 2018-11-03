@@ -18,6 +18,7 @@ type Tag
     | Canned
     | Fresh
     | Condiment
+    | Bakery
 
 
 list : List Tag
@@ -35,6 +36,7 @@ list =
     , Legume
     , Diary
     , Yogurt
+    , Bakery
     , Canned
     , Fresh
     , Condiment
@@ -46,6 +48,9 @@ toString tag =
     case tag of
         Condiment ->
             "Condiment"
+
+        Bakery ->
+            "Bakery"
 
         Fresh ->
             "Fresh"

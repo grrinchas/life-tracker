@@ -1,4 +1,4 @@
-module Food.Data.Diary exposing (fageTotalZero, skimmedMilk)
+module Food.Data.Diary exposing (fageTotalZero, skimmedMilk, yogurtArlaSkyr, yogurtMullerLight)
 
 import Food.Food exposing (Food)
 import Food.Tag exposing (Tag(..))
@@ -52,4 +52,52 @@ fageTotalZero =
             , total = Unit.zero
             }
     , total = Unit.hectograms 1
+    }
+
+
+yogurtArlaSkyr : Food
+yogurtArlaSkyr =
+    { tags = [ Diary, Yogurt ]
+    , name = "Arla Skyr Icelandic Yogurt "
+    , pic = Route.Resource.yogurtArlaSkyr
+    , protein =
+        Nut.protein <| Unit.grams 14.1
+    , carbs =
+        Nut.carbs
+            { fibre = Unit.grams 0.3
+            , sugar = Unit.grams 11.7
+            , total = Unit.grams 12
+            }
+    , fats =
+        Nut.fats
+            { sat = Unit.grams 0.1
+            , mono = Unit.zero
+            , poly = Unit.zero
+            , total = Unit.grams 0.3
+            }
+    , total = Unit.custom "1 Pot" 150
+    }
+
+
+yogurtMullerLight : Food
+yogurtMullerLight =
+    { tags = [ Diary, Yogurt ]
+    , name = "Muller Light Yogurt"
+    , pic = Route.Resource.yogurtMullerLight
+    , protein =
+        Nut.protein <| Unit.grams 7.5
+    , carbs =
+        Nut.carbs
+            { fibre = Unit.zero
+            , sugar = Unit.grams 12
+            , total = Unit.grams 13
+            }
+    , fats =
+        Nut.fats
+            { sat = Unit.zero
+            , mono = Unit.zero
+            , poly = Unit.zero
+            , total = Unit.grams 0.875
+            }
+    , total = Unit.custom "1 Pot" 175
     }

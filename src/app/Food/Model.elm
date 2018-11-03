@@ -4,6 +4,7 @@ module Food.Model exposing
     , initial
     )
 
+import Food.Data.Bakery as Bakery
 import Food.Data.Berry as Berry
 import Food.Data.Condiment as Condiment
 import Food.Data.Diary as Diary
@@ -46,5 +47,14 @@ initial =
         , Berry.blueberriesAsda
         , Fruit.banana
         , Vegetable.mixedVegetableCanned
+        , Diary.yogurtArlaSkyr
+        , Poultry.chickenBreastSlicedAsda
+        , Bakery.breadHovisSeeded
+        , Vegetable.cucumber
+        , Vegetable.romanianLettuce
+        , Diary.yogurtMullerLight
+        , Vegetable.avocado
+        , Poultry.eggs
+        , Condiment.oilSunflowerSpray
         ]
     }
