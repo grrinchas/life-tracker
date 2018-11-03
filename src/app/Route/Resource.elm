@@ -1,4 +1,4 @@
-module Route.Resource exposing (avocado, banana, beansCanned, beansGreen, blueberriesAsda, breadHovisSeeded, broccoli, butter, cashewsSalted, ceasarDressingLowFat, cheeseParmesanGrated, cheeseSalad, chickenBreastSlicedAsda, chickpeasCanned, cucumber, dates, eggs, fageTotalZero, granolaTropical, grapes, herbsMixElPasoFajitas, kale, ketchup, leeks, mango, milk, oilSunflowerSpray, path, proteinPowder, rawChickenBreast, redBellPepper, redLentils, riceBasmatiSainsbury, riceWhiteSainsbury, romanianLettuce, sourCreamLowFat, tikkaCurryPaste, tomatoesChoppedCanned, tortillaWrapsWholemeal, turkeySlicedAsda, vegetableMixedCanned, yalapenosCanned, yogurtArlaSkyr, yogurtMullerLight)
+module Route.Resource exposing (avocado, banana, beansCanned, beansGreen, blueberriesAsda, breadHovisSeeded, broccoli, butter, cashewsSalted, ceasarDressingLowFat, cheeseParmesanGrated, cheeseSalad, chickenBreastSlicedAsda, chickpeasCanned, cucumber, dates, eggs, fageTotalZero, granolaTropical, grapes, herbsMixElPasoFajitas, kale, ketchup, leeks, mango, milk, oilSunflowerSpray, path, proteinPowder, rawChickenBreast, redBellPepper, redLentils, riceBasmatiSainsbury, riceWhiteSainsbury, romanianLettuce, salmonFilletsRaw, sourCreamLowFat, tikkaCurryPaste, tomatoesChoppedCanned, tortillaWrapsWholemeal, turkeySlicedAsda, vegetableMixedCanned, yalapenosCanned, yogurtArlaSkyr, yogurtMullerLight)
 
 
 path : String
@@ -85,6 +85,10 @@ herbsMixElPasoFajitas =
 
 tikkaCurryPaste =
     path ++ "tikka_curry_paste.jpg"
+
+
+salmonFilletsRaw =
+    path ++ "salmon_fillets_raw.jpg"
 
 
 beansGreen =

@@ -128,21 +128,15 @@ fageTotalZero =
     , name = "Fage Total 0%"
     , pic = Route.Resource.fageTotalZero
     , protein =
-        Nut.protein <| Unit.grams 10.3
+        Nut.protein <| Unit.grams 17.51
     , carbs =
         Nut.carbs
             { fibre = Unit.zero
-            , sugar = Unit.grams 3.0
-            , total = Unit.grams 3.0
+            , sugar = Unit.grams 5.1
+            , total = Unit.grams 5.1
             }
-    , fats =
-        Nut.fats
-            { sat = Unit.zero
-            , mono = Unit.zero
-            , poly = Unit.zero
-            , total = Unit.zero
-            }
-    , total = Unit.hectograms 1
+    , fats = Nut.zeroFats
+    , total = Unit.custom "1 Pot" 170
     }
 
 

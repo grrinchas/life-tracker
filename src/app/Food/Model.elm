@@ -8,6 +8,7 @@ import Food.Data.Bakery as Bakery
 import Food.Data.Berry as Berry
 import Food.Data.Condiment as Condiment
 import Food.Data.Diary as Diary
+import Food.Data.Fish as Fish
 import Food.Data.Fruit as Fruit
 import Food.Data.Grain as Grain
 import Food.Data.Legume as Legume
@@ -78,5 +79,6 @@ initial =
         , Condiment.elPasoHerbsMixFajitas
         , Condiment.tikkaCurryPaste
         , Vegetable.greenBeans
+        , Fish.salmonFillets
         ]
     }
