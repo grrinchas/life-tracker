@@ -1,10 +1,33 @@
-module Food.Data.Poultry exposing (chickenBreastSlicedAsda, eggs, rawChickenBreast)
+module Food.Data.Poultry exposing (chickenBreastSlicedAsda, eggs, rawChickenBreast, turkeySliced)
 
 import Food.Food exposing (Food)
 import Food.Tag exposing (Tag(..))
 import Nutrient.Model as Nut
 import Route.Resource
 import Unit.Model as Unit
+
+
+turkeySliced : Food
+turkeySliced =
+    { tags = [ Poultry ]
+    , name = "Turkey Slices"
+    , protein = Nut.protein <| Unit.grams 4.3
+    , pic = Route.Resource.turkeySlicedAsda
+    , carbs =
+        Nut.carbs
+            { fibre = Unit.grams 0.2
+            , sugar = Unit.grams 0.2
+            , total = Unit.grams 0.5
+            }
+    , fats =
+        Nut.fats
+            { sat = Unit.grams 0.1
+            , mono = Unit.grams 0.1
+            , poly = Unit.grams 0.1
+            , total = Unit.grams 0.3
+            }
+    , total = Unit.custom "1 Slice" 20
+    }
 
 
 eggs : Food

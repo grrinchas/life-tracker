@@ -11,6 +11,7 @@ import Food.Data.Diary as Diary
 import Food.Data.Fruit as Fruit
 import Food.Data.Grain as Grain
 import Food.Data.Legume as Legume
+import Food.Data.Nut as Nut
 import Food.Data.Poultry as Poultry
 import Food.Data.Supplement as Supplement
 import Food.Data.Vegetable as Vegetable
@@ -56,5 +57,26 @@ initial =
         , Vegetable.avocado
         , Poultry.eggs
         , Condiment.oilSunflowerSpray
+        , Vegetable.kale
+        , Vegetable.leeks
+        , Diary.cheeseParmesanGrated
+        , Fruit.dates
+        , Condiment.ceasarDressingLowFat
+        , Diary.sourCreamLowFat
+        , Bakery.tortillaWrapsWholemeal
+        , Vegetable.broccoli
+        , Fruit.mango
+        , Diary.butter
+        , Legume.redKidneyBeansCanned
+        , Vegetable.tomatoesChoppedCanned
+        , Vegetable.jalapenosCanned
+        , Nut.cashewsRoastedSalted
+        , Fruit.grapes
+        , Poultry.turkeySliced
+        , Legume.chickpeasCanned
+        , Diary.greekCheeseSaladLowFat
+        , Condiment.elPasoHerbsMixFajitas
+        , Condiment.tikkaCurryPaste
+        , Vegetable.greenBeans
         ]
     }

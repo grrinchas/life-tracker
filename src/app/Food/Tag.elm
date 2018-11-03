@@ -19,11 +19,14 @@ type Tag
     | Fresh
     | Condiment
     | Bakery
+    | Cheese
+    | Dried
 
 
 list : List Tag
 list =
     [ Fruit
+    , Dried
     , Vegetable
     , Meat
     , Fish
@@ -40,12 +43,19 @@ list =
     , Canned
     , Fresh
     , Condiment
+    , Cheese
     ]
 
 
 toString : Tag -> String
 toString tag =
     case tag of
+        Dried ->
+            "Dried"
+
+        Cheese ->
+            "Cheese"
+
         Condiment ->
             "Condiment"
 
