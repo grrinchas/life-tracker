@@ -3,8 +3,11 @@ module Route.Resource exposing (avocado, banana, beansCanned, beansGreen, bluebe
 
 path : String
 path =
-    --"https://raw.githubusercontent.com/grrinchas/life-tracker/master/docs/images/"
-    "/images/"
+    "https://raw.githubusercontent.com/grrinchas/life-tracker/master/docs/images/"
+
+
+
+--"/images/"
 
 
 kale =
