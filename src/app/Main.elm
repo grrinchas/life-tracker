@@ -52,7 +52,7 @@ initial flags url key =
         nowMsg posix =
             model.calendar.calendar
                 |> calendarNow.set (Date.Model.fromPosix posix)
-                |> calendarDisplay.set (Date.Model.fromPosix posix)
+                --|> calendarDisplay.set (Date.Model.fromPosix posix)
                 |> (OnCalendar << OnCalendarChange)
     in
     ( model

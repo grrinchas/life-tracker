@@ -1,0 +1,31 @@
+#meal-list {
+    @include padding();
+    h2 {
+        @include type-setting(big);
+        @include flexbox();
+        @include justify-content(space-between)
+    }
+
+    .day {
+        @include margin-V();
+    }
+
+    .meal {
+        @include background-grey-light();
+        @include border();
+        @include not-last-child() {
+            @include margin-bottom();
+        }
+        li {
+            @include padding(0.25);
+            @include not-last-child() {
+                @include border-bottom();
+            }
+            @include center-V();
+            img {
+                @include square(2);
+                @include margin-right(0.5);
+            }
+        }
+    }
+}

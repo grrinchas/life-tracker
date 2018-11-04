@@ -1,5 +1,6 @@
 module Calendar.View exposing (nextMonth, nextYear, previousMonth, previousYear, view)
 
+import Activity.Model
 import Calendar.Calendar as Calendar exposing (calendarDisplay)
 import Calendar.Messages exposing (CalendarMsg(..))
 import Calendar.Page exposing (View(..), pageCalendarView)
@@ -36,7 +37,7 @@ view ({ calendar } as model) =
 
 
 weekView : Model -> Html Msg
-weekView ({ calendar } as model) =
+weekView ({ calendar, activities } as model) =
     let
         headerView { day, month, year, weekday } =
             ul
@@ -91,22 +92,33 @@ monthView ({ calendar } as model) =
 
 
 monthSmallView : Model -> Date -> Html Msg
-monthSmallView { calendar } displayDate =
+monthSmallView { calendar, activities } displayDate =
     let
-        dayView { day, month, year } =
+        plotActivity activity =
+            case calendar.page.view of
+                Month ->
+                    li [ class <| String.toLower <| Activity.Model.toString activity ]
+                        [ span [] [ Date.View.militaryTime <| Activity.Model.start activity ]
+                        , text " - "
+                        , span [ class "title" ] [ text <| Activity.Model.toString activity ]
+                        ]
+
+                _ ->
+                    text ""
+
+        dayView ({ day, month, year } as thisDate) =
             li
                 [ classList
                     [ ( "outlier", displayDate.month /= month )
-                    , ( "today"
-                      , List.Extra.notMember False
-                            [ day == calendar.calendar.now.day
-                            , calendar.calendar.now.month == displayDate.month
-                            , calendar.calendar.now.year == year
-                            ]
-                      )
+                    , ( "today", Date.Model.dayEqual calendar.calendar.now thisDate )
                     ]
                 ]
                 [ span [] [ text <| Debug.toString day ]
+                , activities
+                    |> List.filter (Date.Model.dayEqual thisDate << Activity.Model.start)
+                    |> List.sortBy (Date.Model.toMillis << Activity.Model.start)
+                    |> List.map plotActivity
+                    |> ul [ class "activities" ]
                 ]
 
         getWeekdayName day =

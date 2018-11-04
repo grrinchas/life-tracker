@@ -7,10 +7,10 @@ module Food.Food exposing
     , totalPhantom
     )
 
+import Food.Tag exposing (Tag)
 import List.Extra
 import Maybe.Extra
 import Nutrient.Model as Nut exposing (Nutrient)
-import Tag.Model exposing (Tag)
 import Unit.Model as Unit exposing (Unit)
 
 

@@ -1,9 +1,141 @@
-module Route.Resource exposing (banana, blueberriesAsda, fageTotalZero, granolaTropical, ketchup, milk, path, proteinPowder, rawChickenBreast, redBellPepper, redLentils, riceBasmatiSainsbury, riceWhiteSainsbury, vegetableMixedCanned)
+module Route.Resource exposing (avocado, banana, beansCanned, beansGreen, blueberriesAsda, breadHovisSeeded, broccoli, brusselsSprouts, butter, cashewsSalted, ceasarDressingLowFat, cheeseParmesanGrated, cheeseSalad, chickenBreastSlicedAsda, chickpeasCanned, cucumber, dates, eggs, fageTotalZero, granolaTropical, grapes, herbsMixElPasoFajitas, kale, ketchup, leeks, mango, milk, oilSunflowerSpray, path, proteinPowder, rawChickenBreast, redBellPepper, redLentils, riceBasmatiSainsbury, riceWhiteSainsbury, romanianLettuce, salmonFilletsRaw, sourCreamLowFat, tikkaCurryPaste, tomatoesChoppedCanned, tortillaWrapsWholemeal, turkeySlicedAsda, vegetableMixedCanned, yalapenosCanned, yogurtArlaSkyr, yogurtMullerLight)
 
 
 path : String
 path =
     "https://raw.githubusercontent.com/grrinchas/life-tracker/master/docs/images/"
+
+
+
+--"/images/"
+
+
+kale =
+    path ++ "kale.png"
+
+
+leeks =
+    path ++ "leeks.jpg"
+
+
+cheeseParmesanGrated =
+    path ++ "cheese_parmesan_grated.jpg"
+
+
+dates =
+    path ++ "dates.jpeg"
+
+
+ceasarDressingLowFat =
+    path ++ "ceasar_dressing_low_fat.jpg"
+
+
+sourCreamLowFat =
+    path ++ "sour_cream_low_fat.jpg"
+
+
+tortillaWrapsWholemeal =
+    path ++ "tortilla_wraps_wholemeal.jpg"
+
+
+brusselsSprouts =
+    path ++ "brussels_sprouts.jpg"
+
+
+broccoli =
+    path ++ "broccoli.jpg"
+
+
+mango =
+    path ++ "mango.jpg"
+
+
+butter =
+    path ++ "butter.jpg"
+
+
+beansCanned =
+    path ++ "beans_canned.jpg"
+
+
+tomatoesChoppedCanned =
+    path ++ "tomatoes_chopped_canned.jpg"
+
+
+yalapenosCanned =
+    path ++ "yalapenos_canned.jpg"
+
+
+cashewsSalted =
+    path ++ "cashews_salted.jpg"
+
+
+grapes =
+    path ++ "grapes.jpg"
+
+
+turkeySlicedAsda =
+    path ++ "turkey_sliced_asda.jpg"
+
+
+chickpeasCanned =
+    path ++ "chickpeas_canned.jpg"
+
+
+cheeseSalad =
+    path ++ "cheese_salad.jpg"
+
+
+herbsMixElPasoFajitas =
+    path ++ "herbs_mix_el_paso_fajitas.jpg"
+
+
+tikkaCurryPaste =
+    path ++ "tikka_curry_paste.jpg"
+
+
+salmonFilletsRaw =
+    path ++ "salmon_fillets_raw.jpg"
+
+
+beansGreen =
+    path ++ "beans_green.jpg"
+
+
+oilSunflowerSpray =
+    path ++ "oil_sunflower_spray.jpg"
+
+
+eggs =
+    path ++ "eggs.jpg"
+
+
+avocado =
+    path ++ "avocado.jpg"
+
+
+yogurtMullerLight =
+    path ++ "yogurt_muller_light.jpg"
+
+
+romanianLettuce =
+    path ++ "romanian_lettuce.jpg"
+
+
+cucumber =
+    path ++ "cucumber.jpg"
+
+
+breadHovisSeeded =
+    path ++ "bread_hovis_seeded.jpg"
+
+
+chickenBreastSlicedAsda =
+    path ++ "chicken_breast_sliced_asda.jpg"
+
+
+yogurtArlaSkyr =
+    path ++ "yogurt_arla_skyr.jpg"
 
 
 ketchup =

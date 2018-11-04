@@ -9,6 +9,8 @@ import Component.Aside.Model exposing (asideTagsFilter)
 import Date.Model
 import Date.View exposing (..)
 import FontAwesome.Solid
+import Food.Tag
+import Food.View
 import Html exposing (..)
 import Html.Attributes exposing (class, classList, href)
 import Html.Events exposing (onClick)
@@ -18,8 +20,6 @@ import Messages exposing (Msg(..))
 import Model exposing (Model)
 import Route.Model exposing (Route(..))
 import Route.View
-import Tag.Model
-import Tag.View
 
 
 view : Model -> Html Msg
@@ -54,8 +54,8 @@ view ({ nav, config, aside, calendar } as model) =
                 [ h3 [ onClick (OnAside <| OnAsideChange { aside | tagsMenu = not aside.tagsMenu }) ]
                     [ text "Tags", getIcon aside.tagsMenu ]
                 , div []
-                    [ Tag.View.listView
-                        { tags = Tag.Model.list
+                    [ Food.View.tagList
+                        { tags = Food.Tag.list
                         , action =
                             Just
                                 (\tag ->

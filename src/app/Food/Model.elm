@@ -4,12 +4,15 @@ module Food.Model exposing
     , initial
     )
 
+import Food.Data.Bakery as Bakery
 import Food.Data.Berry as Berry
 import Food.Data.Condiment as Condiment
 import Food.Data.Diary as Diary
+import Food.Data.Fish as Fish
 import Food.Data.Fruit as Fruit
 import Food.Data.Grain as Grain
 import Food.Data.Legume as Legume
+import Food.Data.Nut as Nut
 import Food.Data.Poultry as Poultry
 import Food.Data.Supplement as Supplement
 import Food.Data.Vegetable as Vegetable
@@ -46,5 +49,37 @@ initial =
         , Berry.blueberriesAsda
         , Fruit.banana
         , Vegetable.mixedVegetableCanned
+        , Diary.yogurtArlaSkyr
+        , Poultry.chickenBreastSlicedAsda
+        , Bakery.breadHovisSeeded
+        , Vegetable.cucumber
+        , Vegetable.romanianLettuce
+        , Diary.yogurtMullerLight
+        , Vegetable.avocado
+        , Poultry.eggs
+        , Condiment.oilSunflowerSpray
+        , Vegetable.kale
+        , Vegetable.leeks
+        , Diary.cheeseParmesanGrated
+        , Fruit.dates
+        , Condiment.ceasarDressingLowFat
+        , Diary.sourCreamLowFat
+        , Bakery.tortillaWrapsWholemeal
+        , Vegetable.broccoli
+        , Fruit.mango
+        , Diary.butter
+        , Legume.redKidneyBeansCanned
+        , Vegetable.tomatoesChoppedCanned
+        , Vegetable.jalapenosCanned
+        , Nut.cashewsRoastedSalted
+        , Fruit.grapes
+        , Poultry.turkeySliced
+        , Legume.chickpeasCanned
+        , Diary.greekCheeseSaladLowFat
+        , Condiment.elPasoHerbsMixFajitas
+        , Condiment.tikkaCurryPaste
+        , Vegetable.greenBeans
+        , Fish.salmonFillets
+        , Vegetable.brusselsSprouts
         ]
     }

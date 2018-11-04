@@ -15,6 +15,7 @@ import Food.View
 import Html exposing (Html, a, div, img, p, span, text)
 import Html.Attributes exposing (href, src)
 import Meal.Model
+import Meal.View
 import Messages exposing (Msg)
 import Model exposing (Model)
 import Route.Model exposing (Route(..))
@@ -45,7 +46,8 @@ view ({ nav } as model) =
         Meals ->
             { title = "Meals"
             , body =
-                Component.Layout.View.notImplemented model
+                Meal.View.page model
+                    |> Component.Layout.View.simple model
             }
 
         Meal name ->

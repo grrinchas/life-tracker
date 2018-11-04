@@ -1,10 +1,58 @@
-module Food.Data.Legume exposing (redLentils, riceBasmati, riceWhite)
+module Food.Data.Legume exposing (chickpeasCanned, redKidneyBeansCanned, redLentils, riceBasmati, riceWhite)
 
 import Food.Food exposing (Food)
+import Food.Tag exposing (Tag(..))
 import Nutrient.Model as Nut
 import Route.Resource
-import Tag.Model exposing (Tag(..))
 import Unit.Model as Unit
+
+
+chickpeasCanned : Food
+chickpeasCanned =
+    { tags = [ Legume, Canned ]
+    , name = "Chickpeas Canned"
+    , pic = Route.Resource.chickpeasCanned
+    , protein =
+        Nut.protein <| Unit.grams 9.2
+    , carbs =
+        Nut.carbs
+            { fibre = Unit.grams 7.3
+            , sugar = Unit.grams 0.6
+            , total = Unit.grams 19.8
+            }
+    , fats =
+        Nut.fats
+            { sat = Unit.grams 0.2
+            , mono = Unit.grams 0.5
+            , poly = Unit.grams 0.8
+            , total = Unit.grams 1.7
+            }
+    , total = Unit.custom "1/2 Can" 120
+    }
+
+
+redKidneyBeansCanned : Food
+redKidneyBeansCanned =
+    { tags = [ Legume, Canned ]
+    , name = "Red Kidney Beans Canned"
+    , pic = Route.Resource.beansCanned
+    , protein =
+        Nut.protein <| Unit.grams 9.7
+    , carbs =
+        Nut.carbs
+            { fibre = Unit.grams 9.4
+            , sugar = Unit.grams 0.6
+            , total = Unit.grams 15.4
+            }
+    , fats =
+        Nut.fats
+            { sat = Unit.grams 0.1
+            , mono = Unit.grams 0.1
+            , poly = Unit.grams 0.5
+            , total = Unit.grams 1.7
+            }
+    , total = Unit.custom "1/2 Can" 126
+    }
 
 
 redLentils : Food

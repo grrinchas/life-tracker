@@ -17,7 +17,7 @@ type alias Page =
 
 initial : Page
 initial =
-    { view = Week
+    { view = Month
     }
 
 
