@@ -80,5 +80,6 @@ initial =
         , Condiment.tikkaCurryPaste
         , Vegetable.greenBeans
         , Fish.salmonFillets
+        , Vegetable.brusselsSprouts
         ]
     }

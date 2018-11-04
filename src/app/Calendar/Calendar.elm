@@ -1,4 +1,4 @@
-module Calendar.Calendar exposing (Calendar, calendarDisplay, calendarNow, initial, normalizedMonthly, rangeInDays, yearly)
+module Calendar.Calendar exposing (Calendar, calendarDisplay, calendarNow, daysBetween, initial, isSameWeek, normalizedMonthly, rangeInDays, weeksBetween, yearly)
 
 import Date.Model as Date exposing (Date, epoch)
 import List.Extra
@@ -49,3 +49,21 @@ normalizedMonthly ({ month, year } as date) =
         |> rangeInDays (Date.addDays { date | day = 1 } -7)
         |> List.Extra.dropWhile ((/=) Mon << .weekday)
         |> List.take 42
+
+
+daysBetween : Date -> Date -> List Date
+daysBetween d1 d2 =
+    Date.daysInRange d1 d2
+        |> rangeInDays d1
+
+
+weeksBetween : Date -> Date -> List (List Date)
+weeksBetween d1 d2 =
+    daysBetween d1 d2
+        |> List.Extra.greedyGroupsOf 7
+
+
+isSameWeek : Date -> Date -> Bool
+isSameWeek d1 d2 =
+    weeksBetween d1 d2
+        |> ((==) 1 << List.length)

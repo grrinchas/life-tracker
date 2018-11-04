@@ -1,4 +1,4 @@
-module Date.Model exposing (Date, addDays, addYears, dayEqual, daysInMonth, daysInYear, epoch, fromPosix, hourEqual, isLeapYear, minuteEqual, monthEqual, monthFullName, monthList, monthShortName, nextMonth, prevMonth, secondEqual, toMillis, toPosix, weekdayFullName, weekdayLetterName, weekdayList, weekdayShortName, yearEqual)
+module Date.Model exposing (Date, addDays, addYears, dayEqual, daysInMonth, daysInRange, daysInYear, epoch, fromPosix, hourEqual, isLeapYear, minuteEqual, monthEqual, monthFromInt, monthFullName, monthList, monthShortName, monthToInt, nextMonth, prevMonth, secondEqual, toMillis, toPosix, weekdayFullName, weekdayLetterName, weekdayList, weekdayShortName, yearEqual)
 
 import Monocle.Lens exposing (Lens)
 import Time exposing (Month(..), Posix, Weekday(..))
@@ -69,6 +69,11 @@ isLeapYear year =
 
     else
         False
+
+
+daysInRange : Date -> Date -> Int
+daysInRange d1 d2 =
+    (toMillis d2 - toMillis d1) // 86400000
 
 
 daysInYear : Int -> Int

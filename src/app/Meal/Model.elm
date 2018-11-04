@@ -1,4 +1,4 @@
-module Meal.Model exposing (Meal(..), foodIngredient, foodList, mealIngredient, mealList, singleFood, totalCalories)
+module Meal.Model exposing (Meal(..), calPerIngredient, foodIngredient, foodList, ingredients, mealIngredient, mealList, singleFood, totalCalories)
 
 import Food.Data.Diary exposing (skimmedMilk)
 import Food.Data.Supplement exposing (wheyProtein)
@@ -8,14 +8,14 @@ import Unit.Model exposing (Unit, grams)
 
 type alias Ingredient a =
     { ingredient : a
-    , amount : Unit
+    , amount : Float
     }
 
 
 type Meal
     = FoodList (List (Ingredient Food))
     | MealList (List (Ingredient Meal))
-    | SingleFood Food Unit
+    | SingleFood Food Float
 
 
 mealList : List (Ingredient Meal) -> Meal
@@ -28,27 +28,51 @@ foodList =
     FoodList
 
 
-singleFood : Food -> Unit -> Meal
+singleFood : Food -> Float -> Meal
 singleFood =
     SingleFood
 
 
-mealIngredient : Meal -> Unit -> Ingredient Meal
+mealIngredient : Meal -> Float -> Ingredient Meal
 mealIngredient =
     Ingredient
 
 
-foodIngredient : Food -> Unit -> Ingredient Food
+foodIngredient : Food -> Float -> Ingredient Food
 foodIngredient =
     Ingredient
+
+
+calPerIngredient : Meal -> List ( Ingredient Food, Int )
+calPerIngredient mainMeal =
+    ingredients mainMeal
+        |> List.map
+            (\({ ingredient, amount } as ing) ->
+                ( ing, amount * (Food.Food.totalCalories ingredient |> toFloat) |> round )
+            )
+
+
+ingredients : Meal -> List (Ingredient Food)
+ingredients mainMeal =
+    case mainMeal of
+        FoodList list ->
+            list
+
+        SingleFood food amount ->
+            foodIngredient food amount
+                |> List.singleton
+
+        MealList list ->
+            []
 
 
 totalCalories : Meal -> Int
 totalCalories mainMeal =
     let
         calPerFood { ingredient, amount } =
-            Unit.Model.div amount ingredient.total
-                |> (*) (Food.Food.totalCalories ingredient |> Basics.toFloat)
+            Food.Food.totalCalories ingredient
+                |> toFloat
+                |> (*) amount
                 |> round
 
         calPerMeal { ingredient, amount } =
@@ -67,7 +91,8 @@ totalCalories mainMeal =
                 |> List.sum
 
         SingleFood food amount ->
-            calPerFood { ingredient = food, amount = amount }
+            calPerFood
+                { ingredient = food, amount = amount }
 
         MealList list ->
             list

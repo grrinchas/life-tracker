@@ -57,7 +57,7 @@ rawChickenBreast : Food
 rawChickenBreast =
     { tags = [ Meat, Poultry ]
     , name = "Raw Chicken Breast"
-    , protein = Nut.protein <| Unit.grams 23.1
+    , protein = Nut.protein <| Unit.grams 24
     , pic = Route.Resource.rawChickenBreast
     , carbs =
         Nut.zeroCarbs

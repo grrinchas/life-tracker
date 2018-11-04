@@ -1,10 +1,28 @@
-module Food.Data.Vegetable exposing (avocado, broccoli, cucumber, greenBeans, jalapenosCanned, kale, leeks, mixedVegetableCanned, redBellPepper, romanianLettuce, tomatoesChoppedCanned)
+module Food.Data.Vegetable exposing (avocado, broccoli, brusselsSprouts, cucumber, greenBeans, jalapenosCanned, kale, leeks, mixedVegetableCanned, redBellPepper, romanianLettuce, tomatoesChoppedCanned)
 
 import Food.Food exposing (Food)
 import Food.Tag exposing (Tag(..))
 import Nutrient.Model as Nut
 import Route.Resource
 import Unit.Model as Unit
+
+
+brusselsSprouts : Food
+brusselsSprouts =
+    { tags = [ Vegetable, Fresh ]
+    , name = "Brussels Sprouts"
+    , pic = Route.Resource.brusselsSprouts
+    , protein =
+        Nut.protein <| Unit.grams 0.6
+    , carbs =
+        Nut.carbs
+            { fibre = Unit.grams 0.7
+            , sugar = Unit.grams 0.4
+            , total = Unit.grams 1.7
+            }
+    , fats = Nut.zeroFats
+    , total = Unit.custom "1 Unit" 19
+    }
 
 
 greenBeans : Food

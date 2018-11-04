@@ -56,10 +56,6 @@ type Route
 
 parse : String -> Maybe Route
 parse path =
-    let
-        _ =
-            Debug.log "" path
-    in
     case List.filter ((/=) "") <| String.split "/" <| String.replace "#" "" path of
         [] ->
             Just Home

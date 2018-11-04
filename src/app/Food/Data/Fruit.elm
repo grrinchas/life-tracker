@@ -16,8 +16,8 @@ grapes =
     , carbs =
         Nut.carbs
             { fibre = Unit.zero
-            , sugar = Unit.grams 0.5
-            , total = Unit.grams 0.5
+            , sugar = Unit.grams 1
+            , total = Unit.grams 1
             }
     , fats = Nut.zeroFats
     , total = Unit.custom "1 Grape" 2.4

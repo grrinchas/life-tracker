@@ -1,4 +1,4 @@
-module Activity.Model exposing (Activity, Info, defaultInfo, eating, end, exercising, start, toString)
+module Activity.Model exposing (Activity, Info, defaultInfo, eating, end, exercising, getMeal, isEating, isExercising, start, toString)
 
 import Date.Model exposing (Date)
 import Meal.Model exposing (Meal)
@@ -53,9 +53,39 @@ toString act =
             "Exercising"
 
 
+getMeal : Activity -> Maybe Meal
+getMeal act =
+    case act of
+        Eating _ meal ->
+            Just meal
+
+        _ ->
+            Nothing
+
+
 eating : Info -> Meal -> Activity
 eating =
     Eating
+
+
+isExercising : Activity -> Bool
+isExercising act =
+    case act of
+        Exercising _ _ ->
+            True
+
+        _ ->
+            False
+
+
+isEating : Activity -> Bool
+isEating act =
+    case act of
+        Eating _ _ ->
+            True
+
+        _ ->
+            False
 
 
 exercising : Info -> String -> Activity

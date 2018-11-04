@@ -1,4 +1,4 @@
-module Route.Resource exposing (avocado, banana, beansCanned, beansGreen, blueberriesAsda, breadHovisSeeded, broccoli, butter, cashewsSalted, ceasarDressingLowFat, cheeseParmesanGrated, cheeseSalad, chickenBreastSlicedAsda, chickpeasCanned, cucumber, dates, eggs, fageTotalZero, granolaTropical, grapes, herbsMixElPasoFajitas, kale, ketchup, leeks, mango, milk, oilSunflowerSpray, path, proteinPowder, rawChickenBreast, redBellPepper, redLentils, riceBasmatiSainsbury, riceWhiteSainsbury, romanianLettuce, salmonFilletsRaw, sourCreamLowFat, tikkaCurryPaste, tomatoesChoppedCanned, tortillaWrapsWholemeal, turkeySlicedAsda, vegetableMixedCanned, yalapenosCanned, yogurtArlaSkyr, yogurtMullerLight)
+module Route.Resource exposing (avocado, banana, beansCanned, beansGreen, blueberriesAsda, breadHovisSeeded, broccoli, brusselsSprouts, butter, cashewsSalted, ceasarDressingLowFat, cheeseParmesanGrated, cheeseSalad, chickenBreastSlicedAsda, chickpeasCanned, cucumber, dates, eggs, fageTotalZero, granolaTropical, grapes, herbsMixElPasoFajitas, kale, ketchup, leeks, mango, milk, oilSunflowerSpray, path, proteinPowder, rawChickenBreast, redBellPepper, redLentils, riceBasmatiSainsbury, riceWhiteSainsbury, romanianLettuce, salmonFilletsRaw, sourCreamLowFat, tikkaCurryPaste, tomatoesChoppedCanned, tortillaWrapsWholemeal, turkeySlicedAsda, vegetableMixedCanned, yalapenosCanned, yogurtArlaSkyr, yogurtMullerLight)
 
 
 path : String
@@ -33,6 +33,10 @@ sourCreamLowFat =
 
 tortillaWrapsWholemeal =
     path ++ "tortilla_wraps_wholemeal.jpg"
+
+
+brusselsSprouts =
+    path ++ "brussels_sprouts.jpg"
 
 
 broccoli =
