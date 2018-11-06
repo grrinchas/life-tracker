@@ -81,5 +81,6 @@ initial =
         , Vegetable.greenBeans
         , Fish.salmonFillets
         , Vegetable.brusselsSprouts
+        , Legume.riceCakeLowFat
         ]
     }

@@ -31,12 +31,11 @@
             padding: 0;
             @include fit-size();
 
-
             .outlier {
-                color: $grey-dark;
+                opacity: 0.7;
             }
             @include grid($cols: replicate(100/7, 7), $vSpace: 0, $hSpace: 0) {
-                @include padding(0.25);
+                @include padding-VH(0.25, 0.5);
                 @include not-last-child () {
                     @include border-right();
                     overflow-y: auto;
@@ -72,11 +71,13 @@
 
                 .activities {
                     @include margin-top(0.25);
+                    @include flexbox();
+                    @include flex-wrap(wrap);
                     li {
-                       @include hoverable();
-                        @include foreground-white();
-                        @include padding-VH(0.1, 0.5);
+                        @include circle(1.25);
+                        @include hoverable();
                         @include not-last-child() {
+                            @include margin-right(0.25);
                             @include margin-bottom(0.25);
                         }
                         .title {
@@ -114,8 +115,6 @@
                     @include border-right();
                 }
 
-
-
                 li {
                     margin: 0;
                     width: 100%;
@@ -152,7 +151,6 @@
                         }
                     }
                 }
-
 
                 &.hour {
                     max-width: spacing(2) !important;

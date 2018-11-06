@@ -171,6 +171,86 @@ day4 =
             { start = today8 16 0
             , end = today8 17 0
             }
+    , FoodList
+        [ foodIngredient riceCakeLowFat 11
+        , foodIngredient dates 2
+        , foodIngredient yogurtMullerLight 2
+        ]
+        |> Activity.Model.eating
+            { start = today8 18 0
+            , end = today8 18 30
+            }
+    ]
+
+
+day5 : List Activity
+day5 =
+    let
+        today8 hour min =
+            { epoch | year = 2018, month = Nov, day = 5, weekday = Mon, hour = hour, minute = min }
+    in
+    [ "Strength"
+        |> Activity.Model.exercising
+            { start = today8 13 30
+            , end = today8 14 30
+            }
+    , proteinMilkshake
+        |> Activity.Model.eating
+            { start = today8 14 30
+            , end = today8 15 0
+            }
+    , FoodList
+        [ foodIngredient rawChickenBreast 3
+        , foodIngredient redLentils 0.75
+        , foodIngredient oilSunflowerSpray 1
+        , foodIngredient broccoli 0.5
+        , foodIngredient banana 2
+        , foodIngredient dates 1
+        , foodIngredient mango 1
+        , foodIngredient yogurtMullerLight 2
+        ]
+        |> Activity.Model.eating
+            { start = today8 18 30
+            , end = today8 19 30
+            }
+    ]
+
+
+day6 : List Activity
+day6 =
+    let
+        today8 hour min =
+            { epoch | year = 2018, month = Nov, day = 6, weekday = Tue, hour = hour, minute = min }
+    in
+    [ FoodList
+        [ foodIngredient yogurtMullerLight 1
+        ]
+        |> Activity.Model.eating
+            { start = today8 8 0
+            , end = today8 8 15
+            }
+    , "Cardio"
+        |> Activity.Model.exercising
+            { start = today8 13 30
+            , end = today8 14 30
+            }
+    , proteinMilkshake
+        |> Activity.Model.eating
+            { start = today8 14 30
+            , end = today8 15 0
+            }
+    , FoodList
+        [ foodIngredient avocado 1
+        , foodIngredient breadHovisSeeded 4
+        , foodIngredient eggs 6
+        , foodIngredient fageTotalZero 0.5
+        , foodIngredient banana 2
+        , foodIngredient yogurtMullerLight 2
+        ]
+        |> Activity.Model.eating
+            { start = today8 18 30
+            , end = today8 19 30
+            }
     ]
 
 
@@ -181,4 +261,6 @@ activities =
         , day2
         , day3
         , day4
+        , day5
+        , day6
         ]

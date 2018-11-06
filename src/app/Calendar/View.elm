@@ -98,9 +98,9 @@ monthSmallView { calendar, activities } displayDate =
             case calendar.page.view of
                 Month ->
                     li [ class <| String.toLower <| Activity.Model.toString activity ]
-                        [ span [] [ Date.View.militaryTime <| Activity.Model.start activity ]
-                        , text " - "
-                        , span [ class "title" ] [ text <| Activity.Model.toString activity ]
+                        [--span [] [ Date.View.militaryTime <| Activity.Model.start activity ]
+                         -- , text " - "
+                         -- , span [ class "title" ] [ text <| Activity.Model.toString activity ]
                         ]
 
                 _ ->

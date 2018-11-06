@@ -1,10 +1,34 @@
-module Food.Data.Legume exposing (chickpeasCanned, redKidneyBeansCanned, redLentils, riceBasmati, riceWhite)
+module Food.Data.Legume exposing (chickpeasCanned, redKidneyBeansCanned, redLentils, riceBasmati, riceCakeLowFat, riceWhite)
 
 import Food.Food exposing (Food)
 import Food.Tag exposing (Tag(..))
 import Nutrient.Model as Nut
 import Route.Resource
 import Unit.Model as Unit
+
+
+riceCakeLowFat : Food
+riceCakeLowFat =
+    { tags = [ Legume ]
+    , name = "Rice Cake Low Fat"
+    , pic = Route.Resource.riceCakeLowFat
+    , protein =
+        Nut.protein <| Unit.grams 0.6
+    , carbs =
+        Nut.carbs
+            { fibre = Unit.grams 0.5
+            , sugar = Unit.grams 0.5
+            , total = Unit.grams 6.1
+            }
+    , fats =
+        Nut.fats
+            { sat = Unit.grams 0.1
+            , mono = Unit.grams 0.1
+            , poly = Unit.grams 0.1
+            , total = Unit.grams 0.5
+            }
+    , total = Unit.custom "1 Cake" 7.5
+    }
 
 
 chickpeasCanned : Food
