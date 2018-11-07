@@ -18,6 +18,7 @@ import Meal.Model
 import Meal.View
 import Messages exposing (Msg)
 import Model exposing (Model)
+import Nutrient.View
 import Route.Model exposing (Route(..))
 import Svg.Path
 import Time exposing (Month(..))
@@ -65,7 +66,8 @@ view ({ nav } as model) =
         Nutrition ->
             { title = "Nutrition"
             , body =
-                Component.Layout.View.notImplemented model
+                Nutrient.View.chart model
+                    |> Component.Layout.View.simple model
             }
 
         Products ->

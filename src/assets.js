@@ -44,6 +44,9 @@ import './asset/image/food/herbs_mix_el_paso_fajitas.jpg'
 import './asset/image/food/tikka_curry_paste.jpg'
 import './asset/image/food/beans_green.jpg'
 import './asset/image/food/rice_cake_low_fat.jpg'
+import './asset/image/food/potatoes.jpg'
+import './asset/image/food/apples.jpg'
+import './asset/image/food/spinach.jpg'
 
 
 

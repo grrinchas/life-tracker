@@ -1,5 +1,6 @@
 module Meal.View exposing (page)
 
+import Activity.Activities exposing (..)
 import Activity.Model
 import Calendar.Calendar
 import Date.Model
@@ -18,16 +19,6 @@ import Unit.View
 page : Model -> Html Msg
 page ({ food, aside, activities } as model) =
     let
-        weekGroups =
-            activities
-                |> List.Extra.gatherWith
-                    (\a b -> Calendar.Calendar.isSameWeek (Activity.Model.start a) (Activity.Model.start b))
-
-        dayGroups values =
-            values
-                |> List.Extra.gatherWith
-                    (\a b -> Date.Model.dayEqual (Activity.Model.start a) (Activity.Model.start b))
-
         mealView ( { ingredient, amount }, total ) =
             li []
                 [ img [ src ingredient.pic ] []
@@ -44,23 +35,16 @@ page ({ food, aside, activities } as model) =
                     ]
                 ]
 
-        dayView ( day, list ) =
+        dayView ( date, meals, cal ) =
             section []
                 [ h2 []
-                    [ Activity.Model.start day |> Date.View.monthDayYear
+                    [ Date.View.monthDayYear date
                     , span []
-                        [ (::) day list
-                            |> List.map Activity.Model.getMeal
-                            |> Maybe.Extra.values
-                            |> List.map Meal.Model.totalCalories
-                            |> List.sum
-                            |> (text << Debug.toString)
+                        [ text <| Debug.toString cal
                         , text "cal"
                         ]
                     ]
-                , (::) day list
-                    |> List.map Activity.Model.getMeal
-                    |> Maybe.Extra.values
+                , meals
                     |> List.map Meal.Model.calPerIngredient
                     |> List.map
                         (ul [ class "meal" ] << List.map mealView)
@@ -69,9 +53,11 @@ page ({ food, aside, activities } as model) =
     in
     main_ [ id "meal-list" ]
         [ activities
-            |> List.filter Activity.Model.isEating
             |> List.sortBy (Date.Model.toMillis << Activity.Model.start)
-            |> dayGroups
+            |> List.reverse
+            |> Activity.Activities.calsPerDay
+            --|> List.filter Activity.Model.isEating
+            --|> dayGroups
             |> List.map dayView
             |> div []
         ]

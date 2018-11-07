@@ -82,5 +82,8 @@ initial =
         , Fish.salmonFillets
         , Vegetable.brusselsSprouts
         , Legume.riceCakeLowFat
+        , Fruit.apples
+        , Vegetable.potatoes
+        , Vegetable.spinach
         ]
     }

@@ -1,10 +1,27 @@
-module Food.Data.Fruit exposing (banana, dates, grapes, mango)
+module Food.Data.Fruit exposing (apples, banana, dates, grapes, mango)
 
 import Food.Food exposing (Food)
 import Food.Tag exposing (Tag(..))
 import Nutrient.Model as Nut
 import Route.Resource
 import Unit.Model as Unit
+
+
+apples : Food
+apples =
+    { tags = [ Fruit, Fresh ]
+    , name = "Apples"
+    , pic = Route.Resource.apples
+    , protein = Nut.protein <| Unit.grams 0.5
+    , carbs =
+        Nut.carbs
+            { fibre = Unit.grams 4.4
+            , sugar = Unit.grams 19
+            , total = Unit.grams 25
+            }
+    , fats = Nut.zeroFats
+    , total = Unit.custom "1 Medium" 182
+    }
 
 
 grapes : Food

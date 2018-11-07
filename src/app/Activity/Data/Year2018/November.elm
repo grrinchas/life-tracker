@@ -254,6 +254,44 @@ day6 =
     ]
 
 
+day7 : List Activity
+day7 =
+    let
+        today8 hour min =
+            { epoch | year = 2018, month = Nov, day = 7, weekday = Wed, hour = hour, minute = min }
+    in
+    [ "Strength"
+        |> Activity.Model.exercising
+            { start = today8 13 30
+            , end = today8 14 30
+            }
+    , proteinMilkshake
+        |> Activity.Model.eating
+            { start = today8 14 30
+            , end = today8 15 0
+            }
+    , FoodList
+        [ foodIngredient banana 1
+        , foodIngredient apples 2
+        , foodIngredient grapes 15
+        , foodIngredient yogurtMullerLight 1
+        , foodIngredient oilSunflowerSpray 1
+        , foodIngredient tomatoesChoppedCanned 1
+        , foodIngredient redKidneyBeansCanned 1
+        , foodIngredient ketchup 1
+        , foodIngredient leeks 1
+        , foodIngredient redBellPepper 1
+        , foodIngredient potatoes 2.5
+        , foodIngredient spinach 1
+        , foodIngredient eggs 4
+        ]
+        |> Activity.Model.eating
+            { start = today8 18 30
+            , end = today8 19 30
+            }
+    ]
+
+
 activities : List Activity
 activities =
     List.concat
@@ -263,4 +301,5 @@ activities =
         , day4
         , day5
         , day6
+        , day7
         ]

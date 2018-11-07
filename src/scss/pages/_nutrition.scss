@@ -1,0 +1,12 @@
+#nutrition {
+    display: block;
+    svg {
+        width: 1000px;
+        display: block;
+        background-color: red;
+        .axis {
+            fill: none;
+            stroke: $black;
+        }
+    }
+}
