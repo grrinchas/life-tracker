@@ -47,6 +47,9 @@ import './asset/image/food/rice_cake_low_fat.jpg'
 import './asset/image/food/potatoes.jpg'
 import './asset/image/food/apples.jpg'
 import './asset/image/food/spinach.jpg'
+import './asset/image/food/pork_loin.jpg'
+import './asset/image/food/sausages_berlinki.jpg'
+import './asset/image/food/brownies.jpg'
 
 
 

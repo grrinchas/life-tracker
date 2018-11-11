@@ -1,4 +1,4 @@
-module Food.Data.Poultry exposing (chickenBreastSlicedAsda, eggs, rawChickenBreast, turkeySliced)
+module Food.Data.Poultry exposing (chickenBreastSlicedAsda, eggs, porkLoin, rawChickenBreast, sausagesBerlinki, turkeySliced)
 
 import Food.Food exposing (Food)
 import Food.Tag exposing (Tag(..))
@@ -7,9 +7,55 @@ import Route.Resource
 import Unit.Model as Unit
 
 
+sausagesBerlinki : Food
+sausagesBerlinki =
+    { tags = [ Meat ]
+    , name = "Sausages Berlinki"
+    , protein = Nut.protein <| Unit.grams 7.5
+    , pic = Route.Resource.sausagesBerlinki
+    , carbs =
+        Nut.carbs
+            { fibre = Unit.zero
+            , sugar = Unit.grams 0.4
+            , total = Unit.grams 1.6
+            }
+    , fats =
+        Nut.fats
+            { sat = Unit.grams 3.75
+            , mono = Unit.zero
+            , poly = Unit.zero
+            , total = Unit.grams 10.5
+            }
+    , total = Unit.custom "1 Sausage" 50
+    }
+
+
+porkLoin : Food
+porkLoin =
+    { tags = [ Meat ]
+    , name = "Smoked Pork Loin"
+    , protein = Nut.protein <| Unit.grams 19
+    , pic = Route.Resource.porkLoin
+    , carbs =
+        Nut.carbs
+            { fibre = Unit.zero
+            , sugar = Unit.grams 1.3
+            , total = Unit.grams 1.3
+            }
+    , fats =
+        Nut.fats
+            { sat = Unit.grams 1.1
+            , mono = Unit.zero
+            , poly = Unit.zero
+            , total = Unit.grams 3.3
+            }
+    , total = Unit.hectograms 1
+    }
+
+
 turkeySliced : Food
 turkeySliced =
-    { tags = [ Poultry ]
+    { tags = [ Poultry, Meat ]
     , name = "Turkey Slices"
     , protein = Nut.protein <| Unit.grams 4.3
     , pic = Route.Resource.turkeySlicedAsda

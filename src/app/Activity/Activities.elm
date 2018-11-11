@@ -1,4 +1,4 @@
-module Activity.Activities exposing (actPerDay, allMeals, calsPerDay, maxDayCals, mealsPerDay)
+module Activity.Activities exposing (actPerDay, allMeals, calsPerDay, firstMeal, lastMeal, maxDayCals, mealsPerDay, minDayCals)
 
 import Activity.Model exposing (Activity, getMeal)
 import Date.Model exposing (Date)
@@ -37,6 +37,27 @@ maxDayCals activities =
     activities
         |> calsPerDay
         |> List.Extra.maximumBy (\( _, _, cal ) -> cal)
+
+
+minDayCals : List Activity -> Maybe ( Date, List Meal, Int )
+minDayCals activities =
+    activities
+        |> calsPerDay
+        |> List.Extra.minimumBy (\( _, _, cal ) -> cal)
+
+
+firstMeal : List Activity -> Maybe ( Date, List Meal, Int )
+firstMeal activities =
+    activities
+        |> calsPerDay
+        |> List.Extra.minimumBy (\( date, _, _ ) -> Date.Model.toMillis date)
+
+
+lastMeal : List Activity -> Maybe ( Date, List Meal, Int )
+lastMeal activities =
+    activities
+        |> calsPerDay
+        |> List.Extra.maximumBy (\( date, _, _ ) -> Date.Model.toMillis date)
 
 
 calsPerDay : List Activity -> List ( Date, List Meal, Int )

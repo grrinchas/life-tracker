@@ -15,6 +15,7 @@ import Food.Data.Legume as Legume
 import Food.Data.Nut as Nut
 import Food.Data.Poultry as Poultry
 import Food.Data.Supplement as Supplement
+import Food.Data.Sweet as Sweet
 import Food.Data.Vegetable as Vegetable
 import Food.Food exposing (Food)
 import Food.Page exposing (Page)
@@ -85,5 +86,8 @@ initial =
         , Fruit.apples
         , Vegetable.potatoes
         , Vegetable.spinach
+        , Poultry.porkLoin
+        , Poultry.sausagesBerlinki
+        , Sweet.brownies
         ]
     }

@@ -21,11 +21,13 @@ type Tag
     | Bakery
     | Cheese
     | Dried
+    | Sweet
 
 
 list : List Tag
 list =
     [ Fruit
+    , Sweet
     , Dried
     , Vegetable
     , Meat
@@ -50,6 +52,9 @@ list =
 toString : Tag -> String
 toString tag =
     case tag of
+        Sweet ->
+            "Sweet"
+
         Dried ->
             "Dried"
 

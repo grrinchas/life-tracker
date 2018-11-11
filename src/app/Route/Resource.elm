@@ -1,10 +1,22 @@
-module Route.Resource exposing (apples, avocado, banana, beansCanned, beansGreen, blueberriesAsda, breadHovisSeeded, broccoli, brusselsSprouts, butter, cashewsSalted, ceasarDressingLowFat, cheeseParmesanGrated, cheeseSalad, chickenBreastSlicedAsda, chickpeasCanned, cucumber, dates, eggs, fageTotalZero, granolaTropical, grapes, herbsMixElPasoFajitas, kale, ketchup, leeks, mango, milk, oilSunflowerSpray, path, potatoes, proteinPowder, rawChickenBreast, redBellPepper, redLentils, riceBasmatiSainsbury, riceCakeLowFat, riceWhiteSainsbury, romanianLettuce, salmonFilletsRaw, sourCreamLowFat, spinach, tikkaCurryPaste, tomatoesChoppedCanned, tortillaWrapsWholemeal, turkeySlicedAsda, vegetableMixedCanned, yalapenosCanned, yogurtArlaSkyr, yogurtMullerLight)
+module Route.Resource exposing (apples, avocado, banana, beansCanned, beansGreen, blueberriesAsda, breadHovisSeeded, broccoli, brownies, brusselsSprouts, butter, cashewsSalted, ceasarDressingLowFat, cheeseParmesanGrated, cheeseSalad, chickenBreastSlicedAsda, chickpeasCanned, cucumber, dates, eggs, fageTotalZero, granolaTropical, grapes, herbsMixElPasoFajitas, kale, ketchup, leeks, mango, milk, oilSunflowerSpray, path, porkLoin, potatoes, proteinPowder, rawChickenBreast, redBellPepper, redLentils, riceBasmatiSainsbury, riceCakeLowFat, riceWhiteSainsbury, romanianLettuce, salmonFilletsRaw, sausagesBerlinki, sourCreamLowFat, spinach, tikkaCurryPaste, tomatoesChoppedCanned, tortillaWrapsWholemeal, turkeySlicedAsda, vegetableMixedCanned, yalapenosCanned, yogurtArlaSkyr, yogurtMullerLight)
 
 
 path : String
 path =
     --"https://raw.githubusercontent.com/grrinchas/life-tracker/master/docs/images/"
     "/images/"
+
+
+brownies =
+    path ++ "brownies.jpg"
+
+
+sausagesBerlinki =
+    path ++ "sausages_berlinki.jpg"
+
+
+porkLoin =
+    path ++ "pork_loin.jpg"
 
 
 spinach =
