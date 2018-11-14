@@ -4,6 +4,7 @@ import Calendar.Resolver
 import Component.Aside.Resolver
 import Messages exposing (Msg(..))
 import Model exposing (Model)
+import Nutrient.Resolver
 import Route.Resolver
 
 
@@ -21,3 +22,6 @@ resolve message model =
 
         OnCalendar msg ->
             Calendar.Resolver.resolve msg model
+
+        OnNutrient msg ->
+            Nutrient.Resolver.resolve msg model

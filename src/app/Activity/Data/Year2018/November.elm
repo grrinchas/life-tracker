@@ -417,6 +417,19 @@ day11 =
         , foodIngredient banana 2
         ]
         |> Activity.Model.eating
+            { start = today8 14 30
+            , end = today8 15 30
+            }
+    , FoodList
+        [ foodIngredient banana 2
+        , foodIngredient grapes 30
+        , foodIngredient mango 0.5
+        , foodIngredient breadHovisSeeded 2
+        , foodIngredient jalapenosCanned 0.25
+        , foodIngredient sausagesBerlinki 3
+        , foodIngredient yogurtMullerLight 1
+        ]
+        |> Activity.Model.eating
             { start = today8 18 30
             , end = today8 19 30
             }

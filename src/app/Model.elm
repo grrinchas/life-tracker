@@ -7,6 +7,7 @@ module Model exposing
     , modelConfig
     , modelFood
     , modelNav
+    , modelNutrient
     )
 
 import Activity.Model exposing (Activity)
@@ -17,6 +18,7 @@ import Config.Model exposing (Config)
 import Date.Model exposing (Date)
 import Food.Model
 import Monocle.Lens exposing (Lens)
+import Nutrient.Page
 import Route.Model exposing (Navigation)
 import Time
 
@@ -28,6 +30,7 @@ type alias Model =
     , aside : Component.Aside.Model.Aside
     , calendar : Calendar.Model.Model
     , activities : List Activity
+    , nutrient : Nutrient.Page.Page
     }
 
 
@@ -39,7 +42,13 @@ initial config nav =
     , aside = Component.Aside.Model.initial
     , calendar = Calendar.Model.initial Date.Model.epoch
     , activities = Activity.Record.all
+    , nutrient = Nutrient.Page.initial
     }
+
+
+modelNutrient : Lens Model Nutrient.Page.Page
+modelNutrient =
+    Lens .nutrient (\b a -> { a | nutrient = b })
 
 
 modelActivities : Lens Model (List Activity)

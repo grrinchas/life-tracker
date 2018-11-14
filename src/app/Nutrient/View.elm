@@ -4,6 +4,7 @@ import Activity.Activities
 import Activity.Model
 import Axis
 import Color
+import Curve
 import Date.Model
 import Html exposing (..)
 import Html.Attributes exposing (id)
@@ -12,16 +13,18 @@ import List.Extra
 import Maybe.Extra
 import Messages exposing (Msg(..))
 import Model exposing (Model)
+import Nutrient.Messages exposing (NutrientMsg(..))
 import Nutrient.Model exposing (Nutrient)
+import Nutrient.Page exposing (calorieMouseEvent)
 import Path exposing (Path)
 import Scale exposing (ContinuousScale)
 import Shape
 import Time
-import TypedSvg exposing (g, path, polyline, svg)
-import TypedSvg.Attributes exposing (class, d, fill, points, stroke, transform, viewBox)
+import TypedSvg exposing (circle, g, path, polyline, svg)
+import TypedSvg.Attributes exposing (class, cx, cy, d, fill, points, r, stroke, transform, viewBox)
 import TypedSvg.Attributes.InPx exposing (strokeWidth)
 import TypedSvg.Core exposing (Svg)
-import TypedSvg.Types exposing (Fill(..), Transform(..))
+import TypedSvg.Types exposing (Fill(..), Transform(..), px)
 
 
 simple : Nutrient -> Html Msg
@@ -45,7 +48,7 @@ padding =
 
 
 chart : Model -> Html Msg
-chart { activities } =
+chart { activities, nutrient } =
     let
         xScale =
             Scale.time Time.utc
@@ -102,7 +105,11 @@ chart { activities } =
             Activity.Activities.calsPerDay activities
                 |> List.map (\( date, meals, cals ) -> ( Date.Model.toPosix date, toFloat cals ))
 
-        intercept ( x, y ) =
+        intercept { offsetPos } =
+            let
+                ( x, y ) =
+                    ( Tuple.first offsetPos - padding, h - Tuple.second offsetPos - padding )
+            in
             List.map transformToLineData mealsModel
                 |> Maybe.Extra.values
                 |> (Maybe.withDefault [] << List.tail)
@@ -118,44 +125,69 @@ chart { activities } =
                                 ( ( x, (y1 - y2) / (x1 - x2) * (x - x1) + y1 ), Nothing )
                     )
 
-        --_ = Debug.log "" (Scale.invert xScale 0 |> Date.Model.fromPosix)
-        view =
-            svg [ viewBox 0 0 w h ]
-                [ g
-                    [ transform [ Translate padding padding ]
-                    , class [ "series" ]
-                    , Html.Events.Extra.Mouse.onMove
-                        (\{ clientPos, offsetPos } ->
-                            let
-                                (( x, y ) as point) =
-                                    offsetPos
-
-                                _ =
-                                    Debug.log "meals" (List.map transformToLineData mealsModel)
-
-                                _ =
-                                    Debug.log "Mouse" ( x - padding, h - y - padding )
-
-                                _ =
-                                    Debug.log "Intercept" (intercept ( x - padding, h - y - padding ))
-
-                                --Debug.log "" (Scale.invert xScale x)
-                                --Debug.log "" (Scale.invert yScale (y - padding))
-                            in
-                            Nop
-                        )
-                    ]
-                    [ Path.element area
-                        [ strokeWidth 3
-                        , fill <| Fill <| Color.rgba 1 0 0 0.54
+        circleView ( ( x1, y1 ), second ) =
+            case second of
+                Just ( x2, y2 ) ->
+                    [ Path.element [ Curve.linear [ ( x1, y1 ), ( x2, y2 ) ] ]
+                        [ transform [ Translate padding padding ]
+                        , strokeWidth 5
                         ]
-                    , Path.element line [ stroke (Color.rgb 1 0 0), strokeWidth 3, fill FillNone ]
                     ]
-                , g [ transform [ Translate (padding - 1) padding ] ]
-                    [ yAxis ]
-                , g [ transform [ Translate (padding - 1) (h - padding) ] ]
-                    [ xAxis mealsModel ]
+
+                Nothing ->
+                    [ circle [ cx (px x1), cy (px y1), r (px 4), transform [ Translate padding padding ] ] []
+                    , circle
+                        [ cx (px x1)
+                        , cy (px y1)
+                        , r (px 7)
+                        , transform [ Translate padding padding ]
+                        , stroke (Color.rgb 0 0 0)
+                        , strokeWidth 1
+                        , fill FillNone
+                        ]
+                        []
+                    ]
+
+        lineView ( ( x1, y1 ), second ) =
+            Path.element [ Curve.linear [ ( x1, 0 ), ( x1, h - padding - padding ) ] ]
+                [ transform [ Translate padding padding ]
+                , strokeWidth 1
+                , stroke (Color.rgb 0 0 0)
                 ]
+
+        view =
+            svg
+                [ viewBox 0 0 w h
+                , Html.Events.Extra.Mouse.onMove (\event -> OnNutrient <| OnPageChange <| calorieMouseEvent.set (Just event) nutrient)
+                , Html.Events.Extra.Mouse.onLeave (\event -> OnNutrient <| OnPageChange <| calorieMouseEvent.set Nothing nutrient)
+                ]
+            <|
+                List.concat
+                    [ [ g
+                            [ transform [ Translate padding padding ]
+                            , class [ "series" ]
+                            ]
+                            [ Path.element area
+                                [ strokeWidth 3
+                                , fill <| Fill <| Color.rgba 1 0 0 0.54
+                                ]
+                            , Path.element line [ stroke (Color.rgb 1 0 0), strokeWidth 3, fill FillNone ]
+                            ]
+                      , g [ transform [ Translate (padding - 1) padding ] ]
+                            [ yAxis ]
+                      , g [ transform [ Translate (padding - 1) (h - padding) ] ]
+                            [ xAxis mealsModel ]
+                      ]
+                    , Maybe.map intercept nutrient.calorieMouseEvent
+                        |> Maybe.Extra.join
+                        |> Maybe.map circleView
+                        |> Maybe.withDefault []
+                    , [ Maybe.map intercept nutrient.calorieMouseEvent
+                            |> Maybe.Extra.join
+                            |> Maybe.map lineView
+                            |> Maybe.withDefault (g [] [])
+                      ]
+                    ]
     in
     main_ [ id "nutrition" ]
         [ view
